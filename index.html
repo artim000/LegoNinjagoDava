@@ -3,27 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LEGO NINJAGO DAVA — Фігурки Ніндзяго & Star Wars</title>
+<title>LEGO NINJAGO DAVA</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:       #0d0000;
-  --card:     #1c0404;
-  --card2:    #240606;
-  --red:      #ff0030;
-  --redneon:  #ff1a45;
-  --reddim:   #660011;
-  --gold:     #ffaa00;
-  --blue:     #0088ff;
-  --green:    #00cc66;
-  --orange:   #ff6600;
-  --fg:       #fff0f0;
-  --fg2:      #cc8888;
-  --fg3:      #884444;
-  --border:   rgba(255,0,48,.4);
-  --glow:     0 0 10px rgba(255,0,48,.6),0 0 30px rgba(255,0,48,.3);
-  --fd:       'Orbitron',monospace;
-  --fb:       'Rajdhani',sans-serif;
+:root{
+  --bg:#0d0000;--card:#1c0404;--card2:#240606;
+  --red:#ff0030;--redneon:#ff1a45;--reddim:#660011;
+  --gold:#ffaa00;--blue:#0088ff;--green:#00cc66;--orange:#ff6600;
+  --fg:#fff0f0;--fg2:#cc8888;--fg3:#884444;
+  --border:rgba(255,0,48,.4);
+  --glow:0 0 10px rgba(255,0,48,.6),0 0 30px rgba(255,0,48,.3);
+  --fd:'Orbitron',monospace;--fb:'Rajdhani',sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -31,8 +21,8 @@ body{background:var(--bg);color:var(--fg);font-family:var(--fb);min-height:100vh
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(255,0,30,.12) 0%,transparent 70%),repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(255,0,30,.03) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(255,0,30,.03) 60px);pointer-events:none;z-index:0}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--reddim);border-radius:3px}
 
-/* ─── HEADER ─── */
-header{position:sticky;top:0;z-index:100;background:rgba(13,0,0,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);box-shadow:0 2px 30px rgba(255,0,30,.15);padding:0 20px;height:66px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+/* HEADER */
+header{position:sticky;top:0;z-index:100;background:rgba(13,0,0,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);box-shadow:0 2px 30px rgba(255,0,30,.15);padding:0 20px;height:66px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .logo{display:flex;align-items:center;gap:12px}
 .logo-icon{font-size:30px;filter:drop-shadow(0 0 8px var(--red));animation:pd 3s ease-in-out infinite}
 @keyframes pd{0%,100%{filter:drop-shadow(0 0 8px var(--red));transform:scale(1)}50%{filter:drop-shadow(0 0 18px var(--redneon));transform:scale(1.06)}}
@@ -42,16 +32,22 @@ header{position:sticky;top:0;z-index:100;background:rgba(13,0,0,.94);backdrop-fi
 .tgl{color:var(--blue);text-decoration:none;font-weight:700;transition:color .2s}
 .tgl:hover{color:#44aaff;text-shadow:0 0 10px #08f}
 .hdr-right{display:flex;align-items:center;gap:8px}
+
+/* sync indicator */
+.sync-dot{width:8px;height:8px;border-radius:50%;background:var(--fg3);display:inline-block;margin-right:2px;transition:background .3s}
+.sync-dot.ok{background:var(--green);box-shadow:0 0 6px var(--green)}
+.sync-dot.err{background:var(--orange);box-shadow:0 0 6px var(--orange)}
+.sync-dot.saving{background:var(--gold);animation:blink .6s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+#syncLbl{font-size:11px;color:var(--fg3);letter-spacing:.5px}
+
 .btn-gear{background:none;border:1px solid var(--reddim);color:var(--fg3);width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .25s}
-.btn-gear:hover{border-color:var(--red);color:var(--redneon);box-shadow:0 0 12px rgba(255,0,48,.4)}
+.btn-gear:hover{border-color:var(--red);color:var(--redneon)}
 .btn-gear.on{border-color:var(--gold);color:var(--gold);box-shadow:0 0 12px rgba(255,170,0,.5)}
 .btn-out{background:none;border:1px solid var(--reddim);color:var(--fg3);padding:5px 11px;border-radius:6px;cursor:pointer;font-family:var(--fb);font-size:12px;transition:all .25s;display:none}
 .btn-out:hover{border-color:var(--red);color:var(--redneon)}
 
-/* ─── SYNC PILL ─── */
-.sync-pill{font-size:11px;padding:3px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.1);color:var(--fg3);display:none;letter-spacing:.5px}
-
-/* ─── HERO ─── */
+/* HERO */
 .hero{position:relative;z-index:1;padding:56px 20px 36px;text-align:center}
 .hero-bg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:clamp(50px,10vw,120px);opacity:.05;pointer-events:none;user-select:none;font-family:serif;letter-spacing:20px}
 .badge{display:inline-block;font-family:var(--fd);font-size:10px;letter-spacing:4px;color:var(--redneon);border:1px solid var(--border);padding:5px 16px;border-radius:20px;margin-bottom:18px;animation:flk 4s ease-in-out infinite}
@@ -60,7 +56,7 @@ h1{font-family:var(--fd);font-size:clamp(26px,6vw,70px);font-weight:900;text-tra
 h1 span{color:var(--redneon);text-shadow:0 0 20px var(--red),0 0 60px rgba(255,0,48,.4)}
 .hero-sub{font-size:clamp(12px,2vw,17px);color:var(--fg2);letter-spacing:3px;text-transform:uppercase;font-weight:300}
 
-/* ─── ORDERS TICKER ─── */
+/* ORDERS */
 .orders-wrap{display:none;max-width:1400px;margin:0 auto;padding:0 16px 16px;position:relative;z-index:1}
 .orders-wrap.show{display:block}
 .orders-box{background:var(--card);border:1px solid rgba(0,136,255,.25);border-radius:10px;padding:12px 16px}
@@ -70,16 +66,16 @@ h1 span{color:var(--redneon);text-shadow:0 0 20px var(--red),0 0 60px rgba(255,0
 @keyframes si{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)}}
 .oi span{color:var(--fg);font-weight:600}
 
-/* ─── LAYOUT ─── */
+/* LAYOUT */
 .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1fr;gap:28px;padding:0 16px 60px;max-width:1400px;margin:0 auto}
 @media(min-width:900px){.wrap.admin-on{grid-template-columns:1fr 370px}}
 
-/* ─── ADMIN PANEL ─── */
+/* ADMIN PANEL */
 .admin-panel{display:none;order:-1}
 .admin-panel.show{display:block}
 @media(min-width:900px){.admin-panel{order:2}}
 .abox{background:var(--card);border:1px solid rgba(255,170,0,.28);border-radius:12px;padding:20px;box-shadow:0 0 30px rgba(255,170,0,.06);position:sticky;top:82px}
-.abox h3{font-family:var(--fd);font-size:11px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;text-shadow:0 0 10px rgba(255,170,0,.5);margin-bottom:16px;display:flex;align-items:center;gap:7px}
+.abox h3{font-family:var(--fd);font-size:11px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;text-shadow:0 0 10px rgba(255,170,0,.5);margin-bottom:16px}
 .fg{margin-bottom:11px}
 .fg label{display:block;font-size:10px;letter-spacing:2px;color:var(--fg2);text-transform:uppercase;margin-bottom:4px;font-weight:600}
 .fg input,.fg textarea,.fg select{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,170,0,.2);border-radius:7px;padding:9px 12px;color:var(--fg);font-family:var(--fb);font-size:14px;outline:none;transition:border-color .2s,box-shadow .2s}
@@ -103,16 +99,13 @@ h1 span{color:var(--redneon);text-shadow:0 0 20px var(--red),0 0 60px rgba(255,0
 .or-row::before,.or-row::after{content:'';flex:1;height:1px;background:rgba(255,170,0,.15)}
 .or-row span{font-size:11px;color:var(--fg3);letter-spacing:2px;text-transform:uppercase}
 
-.btn-pub{width:100%;background:linear-gradient(135deg,#cc8800,#ffaa00);border:none;border-radius:8px;padding:12px;color:#000;font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(255,170,0,.3)}
+.btn-pub{width:100%;background:linear-gradient(135deg,#cc8800,#ffaa00);border:none;border-radius:8px;padding:12px;color:#000;font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(255,170,0,.3);margin-bottom:12px}
 .btn-pub:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(255,170,0,.5)}
 
-/* firebase row */
-.fb-row{margin-top:13px;padding-top:13px;border-top:1px solid rgba(255,170,0,.1);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
-.btn-cloud{background:none;border:1px solid rgba(0,136,255,.38);color:rgba(0,136,255,.85);border-radius:6px;padding:6px 11px;font-family:var(--fb);font-size:11px;letter-spacing:1px;cursor:pointer;transition:all .2s}
-.btn-cloud:hover{border-color:var(--blue);color:#44aaff;background:rgba(0,136,255,.07)}
-#syncTxt{font-size:11px;letter-spacing:.5px}
+/* status row */
+.status-row{display:flex;align-items:center;gap:8px;padding:10px 12px;background:rgba(0,0,0,.2);border-radius:8px;border:1px solid rgba(255,255,255,.06)}
 
-/* ─── GRID ─── */
+/* GRID */
 .products-section{order:1}
 .sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:10px}
 .sec-ttl{font-family:var(--fd);font-size:clamp(12px,2vw,15px);letter-spacing:3px;text-transform:uppercase}
@@ -122,24 +115,20 @@ h1 span{color:var(--redneon);text-shadow:0 0 20px var(--red),0 0 60px rgba(255,0
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:18px}
 @media(max-width:480px){.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:11px}}
 
-/* ─── CARD ─── */
+/* CARD */
 .card{background:var(--card);border:1px solid rgba(255,0,30,.12);border-radius:13px;overflow:hidden;display:flex;flex-direction:column;transition:all .3s;position:relative;animation:ca .4s ease both}
 @keyframes ca{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
 .card:not(.sold):hover{transform:translateY(-5px);border-color:rgba(255,0,30,.38);box-shadow:0 8px 40px rgba(255,0,30,.18);background:var(--card2)}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--redneon),transparent);opacity:0;transition:opacity .3s}
 .card:not(.sold):hover::before{opacity:1}
 .card.sold{opacity:.72}
-
-/* sold banner */
 .sold-banner{display:none;position:absolute;top:13px;left:0;background:linear-gradient(135deg,#cc4400,#ff6600);color:#fff;font-family:var(--fd);font-size:9px;font-weight:700;letter-spacing:2px;padding:5px 18px 5px 12px;text-transform:uppercase;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 50%,calc(100% - 8px) 100%,0 100%);box-shadow:0 2px 14px rgba(255,102,0,.5);z-index:5}
 .card.sold .sold-banner{display:block}
-
 .card-img{position:relative;aspect-ratio:1;background:linear-gradient(135deg,#1a0404,#0d0000);overflow:hidden}
 .card-img img{width:100%;height:100%;object-fit:contain;padding:11px;transition:transform .4s ease}
 .card:not(.sold):hover .card-img img{transform:scale(1.07)}
 .no-img{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:58px;opacity:.2}
 .card.sold .card-img::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.4)}
-
 .card-body{padding:13px;flex:1;display:flex;flex-direction:column;gap:7px}
 .tag{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:11px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;width:fit-content}
 .tag.ninjago{background:rgba(0,204,102,.12);color:var(--green);border:1px solid rgba(0,204,102,.3)}
@@ -147,13 +136,11 @@ h1 span{color:var(--redneon);text-shadow:0 0 20px var(--red),0 0 60px rgba(255,0
 .card-name{font-family:var(--fd);font-size:clamp(10px,1.4vw,13px);font-weight:700;letter-spacing:1px;line-height:1.3}
 .card-desc{font-size:13px;color:var(--fg2);line-height:1.5;font-weight:300;flex:1}
 .card-acts{display:flex;gap:7px;margin-top:3px}
-
 .btn-buy{flex:1;background:linear-gradient(135deg,#cc0022,#ff0030);border:none;border-radius:7px;padding:9px;color:#fff;font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .25s;box-shadow:0 2px 12px rgba(255,0,30,.25);position:relative;overflow:hidden}
 .btn-buy::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.12) 50%,transparent 70%);transform:translateX(-100%);transition:transform .4s}
 .btn-buy:not(:disabled):hover::after{transform:translateX(100%)}
 .btn-buy:not(:disabled):hover{transform:translateY(-2px);box-shadow:var(--glow)}
 .btn-buy:disabled{background:rgba(60,10,10,.7);color:rgba(255,102,0,.7);cursor:not-allowed;box-shadow:none;transform:none;border:1px solid rgba(255,102,0,.25)}
-
 .adm-row{display:none;gap:6px;margin-top:7px;border-top:1px solid rgba(255,170,0,.1);padding-top:9px}
 .admin-on .adm-row{display:flex}
 .btn-sold{flex:1;background:none;border:1px solid rgba(255,102,0,.4);color:rgba(255,102,0,.9);border-radius:6px;padding:7px;font-family:var(--fb);font-size:11px;letter-spacing:1px;cursor:pointer;transition:all .2s;text-align:center}
@@ -166,9 +153,9 @@ h1 span{color:var(--redneon);text-shadow:0 0 20px var(--red),0 0 60px rgba(255,0
 /* empty */
 .empty{grid-column:1/-1;text-align:center;padding:60px 24px;color:var(--fg3)}
 .empty .ei{font-size:58px;margin-bottom:14px;opacity:.4}
-.empty p{font-size:14px;letter-spacing:2px;text-transform:uppercase}
+.empty p{font-size:14px;letter-spacing:2px;text-transform:uppercase;line-height:2}
 
-/* ─── MODALS ─── */
+/* MODALS */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.87);backdrop-filter:blur(8px);z-index:200;display:flex;align-items:center;justify-content:center;padding:18px;opacity:0;pointer-events:none;transition:opacity .2s}
 .overlay.open{opacity:1;pointer-events:all}
 .mbox{background:var(--card);border:1px solid var(--border);border-radius:15px;padding:28px;width:100%;max-width:420px;box-shadow:0 0 60px rgba(255,0,30,.2);transform:scale(.9);transition:transform .25s;position:relative}
@@ -183,32 +170,25 @@ h1 span{color:var(--redneon);text-shadow:0 0 20px var(--red),0 0 60px rgba(255,0
 .minp:focus{border-color:var(--redneon);box-shadow:0 0 12px rgba(255,0,48,.25)}
 .btn-login{width:100%;background:linear-gradient(135deg,#cc0022,#ff0030);border:none;border-radius:7px;padding:12px;color:#fff;font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .25s;box-shadow:0 4px 20px rgba(255,0,30,.3)}
 .btn-login:hover{transform:translateY(-2px);box-shadow:var(--glow)}
-
-/* buy modal */
 .bicon{font-size:46px;margin-bottom:11px;text-align:center}
 .bprod{font-family:var(--fd);font-size:12px;color:var(--redneon);letter-spacing:1px;margin-bottom:14px;text-align:center}
 .bmsg{font-size:15px;color:var(--fg);line-height:1.7;margin-bottom:14px;text-align:center}
 .thandle{font-family:var(--fd);font-size:19px;color:var(--blue);text-shadow:0 0 20px rgba(0,136,255,.6);display:block;margin:7px 0 14px;text-decoration:none;text-align:center}
 .thandle:hover{color:#44aaff}
-.btn-tg{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#0066cc,#0088ff);border:none;border-radius:7px;padding:11px 22px;color:#fff;font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:2px;cursor:pointer;text-decoration:none;transition:all .25s;box-shadow:0 4px 20px rgba(0,136,255,.3);margin:0 auto;display:flex;width:fit-content}
+.btn-tg{display:flex;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,#0066cc,#0088ff);border:none;border-radius:7px;padding:11px 22px;color:#fff;font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:2px;cursor:pointer;text-decoration:none;transition:all .25s;box-shadow:0 4px 20px rgba(0,136,255,.3);width:100%}
 .btn-tg:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(0,136,255,.5)}
 
-/* firebase modal */
-.inst{background:rgba(0,136,255,.07);border:1px solid rgba(0,136,255,.2);border-radius:9px;padding:13px;margin-bottom:16px;font-size:13px;color:var(--fg2);line-height:1.8}
-.inst b{color:var(--blue)}
-.inst a{color:var(--blue)}
-
-/* ─── FOOTER ─── */
+/* FOOTER */
 footer{position:relative;z-index:1;border-top:1px solid var(--border);background:rgba(13,0,0,.8);padding:20px}
 .foot{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
 .fbrand{font-family:var(--fd);font-size:11px;letter-spacing:2px;color:var(--fg3);text-transform:uppercase}
 .fcontact{font-size:14px;color:var(--fg2);display:flex;align-items:center;gap:7px}
 .fcopy{font-size:11px;color:var(--fg3);letter-spacing:1px}
 
-/* ─── TOAST ─── */
+/* TOAST */
 .toasts{position:fixed;bottom:22px;right:22px;z-index:300;display:flex;flex-direction:column;gap:7px;pointer-events:none}
-.toast{background:var(--card2);border:1px solid var(--border);border-radius:9px;padding:11px 16px;font-size:14px;color:var(--fg);box-shadow:0 4px 20px rgba(255,0,30,.2);animation:tin .3s ease both;max-width:280px}
-.toast.ok{border-color:rgba(0,204,102,.5);box-shadow:0 4px 20px rgba(0,204,102,.15)}
+.toast{background:var(--card2);border:1px solid var(--border);border-radius:9px;padding:11px 16px;font-size:14px;color:var(--fg);box-shadow:0 4px 20px rgba(255,0,30,.2);animation:tin .3s ease both;max-width:290px}
+.toast.ok{border-color:rgba(0,204,102,.5)}
 @keyframes tin{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
 @keyframes tout{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(18px)}}
 
@@ -233,7 +213,8 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);background
     📱 <a href="https://t.me/Dava638292" class="tgl" target="_blank">@Dava638292</a>
   </div>
   <div class="hdr-right">
-    <span class="sync-pill" id="syncPill">💾</span>
+    <span class="sync-dot" id="syncDot"></span>
+    <span id="syncLbl">...</span>
     <button class="btn-out" id="btnOut" onclick="logout()">Вийти</button>
     <button class="btn-gear" id="btnGear" onclick="openLogin()" title="Вхід для продавця">⚙️</button>
   </div>
@@ -258,13 +239,13 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);background
 <!-- MAIN -->
 <div class="wrap" id="wrap">
 
-  <!-- Admin -->
+  <!-- ADMIN -->
   <div class="admin-panel" id="adminPanel">
     <div class="abox">
       <h3>⚙️ Додати товар</h3>
 
       <div class="fg">
-        <label>📷 Фото (з телефону / комп'ютера)</label>
+        <label>📷 Фото (телефон / комп'ютер)</label>
         <div class="up-area" id="upArea">
           <input type="file" id="fileInp" accept="image/*" onchange="onFile(event)">
           <button class="up-x" id="upX" onclick="clearFile(event)">✕</button>
@@ -299,14 +280,15 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);background
       </div>
       <button class="btn-pub" onclick="publish()">⚡ Опублікувати</button>
 
-      <div class="fb-row">
-        <div id="syncTxt" style="font-size:11px;color:var(--fg3)">💾 Локальне збереження</div>
-        <button class="btn-cloud" onclick="openCloudSetup()">☁️ Налаштувати хмару</button>
+      <!-- STATUS ROW -->
+      <div class="status-row">
+        <span class="sync-dot" id="syncDot2"></span>
+        <span id="syncTxt" style="font-size:12px;color:var(--fg3);flex:1">Перевіряю підключення...</span>
       </div>
     </div>
   </div>
 
-  <!-- Products -->
+  <!-- PRODUCTS -->
   <div class="products-section">
     <div class="sec-hdr">
       <div class="sec-ttl">🔥 Вітрина товарів</div>
@@ -329,8 +311,8 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);background
 <!-- FOOTER -->
 <footer>
   <div class="foot">
-    <div class="fbrand">🐉 Lego Ninjago Dava</div>
-    <div class="fcontact">📱 Замовлення: <a href="https://t.me/Dava638292" class="tgl" target="_blank">@Dava638292</a></div>
+    <div class="fbrand">🐉 Lego Ninjago DAVA</div>
+    <div class="fcontact">📱 <a href="https://t.me/Dava638292" class="tgl" target="_blank">@Dava638292</a></div>
     <div class="fcopy">© 2025 Lego Ninjago DAVA</div>
   </div>
 </footer>
@@ -356,84 +338,77 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);background
     <button class="mclose" onclick="closeM('mBuy')">✕</button>
     <div class="bicon">🛒</div>
     <div class="bprod" id="bName"></div>
-    <div class="bmsg">Для оформлення замовлення пишіть нам у Telegram:</div>
+    <div class="bmsg">Для замовлення пишіть у Telegram:</div>
     <a href="https://t.me/Dava638292" target="_blank" class="thandle">@Dava638292</a>
     <a href="https://t.me/Dava638292" target="_blank" class="btn-tg">✈️ Написати в Telegram</a>
   </div>
 </div>
 
-<!-- MODAL: FIREBASE SETUP -->
-<div class="overlay" id="mCloud">
-  <div class="mbox blue" style="max-width:480px">
-    <button class="mclose" onclick="closeM('mCloud')">✕</button>
-    <div class="mttl" style="color:#44aaff;text-shadow:0 0 20px rgba(0,136,255,.5)">☁️ Хмарне збереження</div>
-    <div class="msub">Firebase — безкоштовно, без карти, 3 хв налаштування</div>
-
-    <div class="inst">
-      <b>Як підключити (1 раз назавжди):</b><br>
-      1. Іди на <a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a><br>
-      2. <b>«Add project»</b> → введи будь-яку назву → «Continue»<br>
-      3. <b>Build → Realtime Database → Create Database</b><br>
-      4. Обери <b>«Start in test mode»</b> → «Enable»<br>
-      5. Скопіюй URL бази (вигляд: <b>https://ім'я-default-rtdb.firebaseio.com</b>)<br>
-      6. Встав URL нижче → натисни <b>«Підключити»</b>
+<!-- MODAL: DB NOT READY -->
+<div class="overlay" id="mSetup">
+  <div class="mbox blue" style="max-width:460px">
+    <div class="mttl" style="color:#44aaff">⚡ ПОТРІБНО 1 ДІЯ</div>
+    <div style="background:rgba(0,136,255,.08);border:1px solid rgba(0,136,255,.25);border-radius:10px;padding:16px;margin:16px 0;font-size:14px;line-height:2;color:var(--fg2)">
+      Твій Firebase проект <b style="color:#fff">LegoDava</b> вже є! ✅<br>
+      Потрібно тільки створити базу даних:<br><br>
+      <b style="color:var(--blue)">1.</b> Зліва натисни <b style="color:#fff">«Databases & Storage»</b><br>
+      <b style="color:var(--blue)">2.</b> Натисни <b style="color:#fff">«Realtime Database»</b><br>
+      <b style="color:var(--blue)">3.</b> Натисни <b style="color:#fff">«Create Database»</b><br>
+      <b style="color:var(--blue)">4.</b> Обери <b style="color:#00cc66">«Start in test mode»</b> → Enable<br><br>
+      <b style="color:#ffaa00">Все! Більше нічого не потрібно.</b> Сайт підключиться автоматично.
     </div>
-
-    <div class="fg" style="margin-bottom:8px">
-      <label style="color:var(--blue)">Firebase Database URL</label>
-      <input class="minp" id="fbUrl" placeholder="https://my-project-default-rtdb.firebaseio.com" style="border-color:rgba(0,136,255,.35);margin-bottom:0">
-    </div>
-    <div id="cStatus" style="font-size:13px;min-height:18px;margin:8px 0 14px;text-align:center;letter-spacing:.5px"></div>
-    <button onclick="connectFirebase()" style="width:100%;background:linear-gradient(135deg,#005599,#0088ff);border:none;border-radius:8px;padding:12px;color:#fff;font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 20px rgba(0,136,255,.3)">✅ ПІДКЛЮЧИТИ</button>
+    <button onclick="retryConnect()" style="width:100%;background:linear-gradient(135deg,#005599,#0088ff);border:none;border-radius:8px;padding:12px;color:#fff;font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 20px rgba(0,136,255,.3)">
+      ✅ Я ЗРОБИВ — ПІДКЛЮЧИТИ
+    </button>
+    <div id="setupErr" style="font-size:12px;color:var(--orange);text-align:center;margin-top:10px;min-height:16px"></div>
   </div>
 </div>
 
 <script>
-// ═══════════════════════════════════════════
-// STORAGE KEYS
-// ═══════════════════════════════════════════
-const K_FB_URL  = 'ndava_fb_url';
-const K_CACHE   = 'ndava_cache_v4';
-const K_NEXTID  = 'ndava_nid_v4';
-const FB_PATH   = '/ningaga_dava/products.json';
+// ══════════════════════════════════════════════════════
+// FIREBASE — URL вшитий автоматично з проекту LegoDava
+// ══════════════════════════════════════════════════════
+const FB_BASE = 'https://legodava-41d00-default-rtdb.firebaseio.com';
+const FB_PATH = '/shop/products.json';
+const FB_META = '/shop/meta.json';
 
-// ═══════════════════════════════════════════
+// local cache keys
+const LC = 'ndava_c5';
+const LN = 'ndava_n5';
+
+// ══════════════════════════════════════════════════════
 // STATE
-// ═══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 let products = [];
 let nextId   = 1;
 let filter   = 'all';
-let isAdmin  = sessionStorage.getItem('ndava_admin') === '1';
+let isAdmin  = sessionStorage.getItem('ndava_adm') === '1';
 let photo    = null;
+let dbReady  = false;
 
-function fbUrl() { return localStorage.getItem(K_FB_URL) || ''; }
-function hasCloud() { return fbUrl().startsWith('https://') && fbUrl().length > 20; }
-
-// ═══════════════════════════════════════════
-// FIREBASE REST
-// ═══════════════════════════════════════════
-async function fbLoad() {
+// ══════════════════════════════════════════════════════
+// FIREBASE REST API
+// ══════════════════════════════════════════════════════
+async function fbGet() {
   try {
-    const r = await fetch(fbUrl() + FB_PATH);
+    const r = await fetch(FB_BASE + FB_PATH);
+    if (r.status === 401 || r.status === 403) return 'auth_error';
     if (!r.ok) return null;
-    const d = await r.json();
-    if (!d) return null;
-    return { products: d.products || [], nextId: d.nextId || 1 };
+    return await r.json();
   } catch(e) { return null; }
 }
 
-async function fbSave() {
-  if (!hasCloud()) return false;
-  setSyncUI('saving');
+async function fbPut(data) {
   try {
-    const r = await fetch(fbUrl() + FB_PATH, {
+    setSyncUI('saving');
+    const r = await fetch(FB_BASE + FB_PATH, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ products, nextId })
+      body: JSON.stringify(data)
     });
     if (!r.ok) throw new Error(r.status);
-    cacheLocal();
     setSyncUI('ok');
+    cacheLocal();
     return true;
   } catch(e) {
     setSyncUI('err');
@@ -442,103 +417,152 @@ async function fbSave() {
   }
 }
 
+// ══════════════════════════════════════════════════════
+// LOCAL CACHE (fallback)
+// ══════════════════════════════════════════════════════
 function cacheLocal() {
   try {
-    localStorage.setItem(K_CACHE,  JSON.stringify(products));
-    localStorage.setItem(K_NEXTID, String(nextId));
+    localStorage.setItem(LC, JSON.stringify({ products, nextId }));
+  } catch(_) {}
+}
+function readCache() {
+  try {
+    const d = JSON.parse(localStorage.getItem(LC) || 'null');
+    if (d) { products = d.products || []; nextId = d.nextId || 1; }
   } catch(_) {}
 }
 
-function loadCache() {
-  try {
-    const r = localStorage.getItem(K_CACHE);
-    products = r ? JSON.parse(r) : [];
-    nextId   = parseInt(localStorage.getItem(K_NEXTID) || '1', 10);
-  } catch(_) { products = []; nextId = 1; }
-}
-
 async function save() {
-  if (hasCloud()) {
-    await fbSave();
-  } else {
-    cacheLocal();
-    setSyncUI('local');
-  }
+  if (dbReady) { await fbPut({ products, nextId }); }
+  else { cacheLocal(); setSyncUI('local'); }
 }
 
-// ═══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // SYNC UI
-// ═══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function setSyncUI(s) {
+  const dots = [document.getElementById('syncDot'), document.getElementById('syncDot2')];
+  const lbl  = document.getElementById('syncLbl');
   const txt  = document.getElementById('syncTxt');
-  const pill = document.getElementById('syncPill');
   const map  = {
-    local:  { t:'💾 Локальне збереження', c:'#884444', p:'💾 Локально' },
-    ok:     { t:'☁️ Збережено в хмарі',  c:'#00cc66', p:'☁️ В хмарі' },
-    saving: { t:'⏳ Зберігаю...',         c:'#ffaa00', p:'⏳ ...' },
-    err:    { t:'⚠️ Помилка хмари',       c:'#ff6600', p:'⚠️ Помилка' },
-    loading:{ t:'⏳ Завантажую...',        c:'#0088ff', p:'⏳ ...' },
+    ok:     { c:'var(--green)', l:'☁️ Хмара', t:'☁️ Збережено — видно з усіх пристроїв' },
+    saving: { c:'var(--gold)',  l:'⏳...',     t:'⏳ Зберігаю...' },
+    err:    { c:'var(--orange)',l:'⚠️ Помилка',t:'⚠️ Помилка хмари, збережено локально' },
+    local:  { c:'var(--fg3)',   l:'💾 Локально',t:'💾 Локальне збереження (тільки цей браузер)' },
+    conn:   { c:'var(--blue)',  l:'🔗 ...',    t:'🔗 Підключаюсь до Firebase...' },
   };
   const m = map[s] || map.local;
-  if (txt) { txt.textContent = m.t; txt.style.color = m.c; }
-  if (pill) { pill.textContent = m.p; pill.style.color = m.c; pill.style.borderColor = m.c+'66'; pill.style.display = ''; }
+  dots.forEach(d => { if(d){ d.style.background=m.c; d.style.boxShadow=`0 0 6px ${m.c}`; } });
+  if (lbl) lbl.textContent = m.l;
+  if (txt) txt.textContent = m.t;
 }
 
-// ═══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // INIT
-// ═══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 window.addEventListener('DOMContentLoaded', async () => {
-  const g = document.getElementById('grid');
-  g.innerHTML = `<div class="empty"><div class="ei">⏳</div><p>Завантажую товари...</p></div>`;
+  showLoading();
+  setSyncUI('conn');
 
-  if (hasCloud()) {
-    setSyncUI('loading');
-    const d = await fbLoad();
-    if (d) {
-      products = d.products;
-      nextId   = d.nextId;
-      cacheLocal();
-      setSyncUI('ok');
-    } else {
-      loadCache();
-      setSyncUI('err');
-      toast('⚠️ Хмара недоступна, показую збережені дані');
-    }
-  } else {
-    loadCache();
+  const data = await fbGet();
+
+  if (data === 'auth_error') {
+    // DB exists but rules block access — show setup modal
+    readCache();
     setSyncUI('local');
+    renderProducts();
+    applyAdminUI();
+    openM('mSetup');
+  } else if (data && typeof data === 'object' && Array.isArray(data.products)) {
+    // ✅ Firebase works!
+    dbReady  = true;
+    products = data.products;
+    nextId   = data.nextId || 1;
+    cacheLocal();
+    setSyncUI('ok');
+    renderProducts();
+    applyAdminUI();
+  } else if (data === null) {
+    // DB not created yet → show setup modal
+    readCache();
+    setSyncUI('local');
+    renderProducts();
+    applyAdminUI();
+    openM('mSetup');
+  } else {
+    // DB exists but empty → use it
+    dbReady = true;
+    readCache(); // load any local products
+    setSyncUI('ok');
+    renderProducts();
+    applyAdminUI();
+    // upload local products to cloud if any
+    if (products.length > 0) await fbPut({ products, nextId });
   }
 
-  renderProducts();
-  applyAdminUI();
-
   document.querySelectorAll('.overlay').forEach(el =>
-    el.addEventListener('click', e => { if (e.target === el) closeM(el.id); })
+    el.addEventListener('click', e => { if (e.target === el && el.id !== 'mSetup') closeM(el.id); })
   );
   document.getElementById('lUser').addEventListener('keydown', e => e.key==='Enter' && doLogin());
   document.getElementById('lPass').addEventListener('keydown', e => e.key==='Enter' && doLogin());
 });
 
-// ═══════════════════════════════════════════
+function showLoading() {
+  document.getElementById('grid').innerHTML =
+    `<div class="empty"><div class="ei">⏳</div><p>Завантажую товари...</p></div>`;
+}
+
+// ══════════════════════════════════════════════════════
+// RETRY CONNECT (after user creates DB)
+// ══════════════════════════════════════════════════════
+async function retryConnect() {
+  const errEl = document.getElementById('setupErr');
+  errEl.textContent = '⏳ Перевіряю...';
+
+  const data = await fbGet();
+
+  if (data === null || data === 'auth_error') {
+    errEl.textContent = '❌ База ще не готова. Переконайся що обрав «Start in test mode» і натисни Enable.';
+    return;
+  }
+
+  // success!
+  dbReady = true;
+  closeM('mSetup');
+
+  if (data && Array.isArray(data.products)) {
+    products = data.products;
+    nextId   = data.nextId || 1;
+  } else {
+    // fresh DB — upload existing local data if any
+    if (products.length > 0) await fbPut({ products, nextId });
+  }
+
+  setSyncUI('ok');
+  renderProducts();
+  toast('🎉 Firebase підключено! Тепер товари видно з усіх пристроїв.', true);
+}
+
+// ══════════════════════════════════════════════════════
 // RENDER
-// ═══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function renderProducts() {
   const g = document.getElementById('grid');
   const list = filter === 'all' ? products : products.filter(p => p.tag === filter);
 
   if (!list.length) {
-    g.innerHTML = `<div class="empty">
-      <div class="ei">📦</div>
-      <p>${products.length === 0 ? 'Ще немає товарів — увійдіть і додайте першу фігурку!' : 'Немає товарів у цій категорії'}</p>
-    </div>`;
+    const msg = products.length === 0
+      ? 'Ще немає товарів<br>Увійди як адмін і додай першу фігурку!'
+      : 'Немає товарів у цій категорії';
+    g.innerHTML = `<div class="empty"><div class="ei">📦</div><p>${msg}</p></div>`;
     return;
   }
 
   g.innerHTML = list.map((p, i) => {
     const sc = p.soldOut ? 'sold' : '';
     const sl = p.soldOut ? '✅ В наявності' : '⛔ Розпродано';
-    const bt = p.soldOut ? '⛔ Розпродано' : 'Купити →';
-    const bd = p.soldOut ? 'disabled' : '';
+    const bt = p.soldOut ? '⛔ Розпродано'  : 'Купити →';
+    const bd = p.soldOut ? 'disabled'        : '';
     const tl = p.tag === 'ninjago' ? '🟢 Ніндзяго' : '🔵 Star Wars';
     const src= p.img || '';
     return `
@@ -559,16 +583,16 @@ function renderProducts() {
         </div>
         <div class="adm-row">
           <button class="btn-sold" onclick="toggleSold(${p.id})">${sl}</button>
-          <button class="btn-del" onclick="delProduct(${p.id})" title="Видалити">🗑</button>
+          <button class="btn-del"  onclick="delProduct(${p.id})" title="Видалити">🗑</button>
         </div>
       </div>
     </div>`;
   }).join('');
 }
 
-// ═══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // FILTER
-// ═══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function setFilter(tag, btn) {
   filter = tag;
   document.querySelectorAll('.fb2').forEach(b => b.classList.remove('on'));
@@ -576,9 +600,9 @@ function setFilter(tag, btn) {
   renderProducts();
 }
 
-// ═══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // AUTH
-// ═══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function openLogin() {
   if (isAdmin) { document.getElementById('adminPanel').scrollIntoView({behavior:'smooth'}); return; }
   document.getElementById('lUser').value = '';
@@ -587,57 +611,48 @@ function openLogin() {
   openM('mLogin');
   setTimeout(() => document.getElementById('lUser').focus(), 100);
 }
-
 function doLogin() {
   const u = document.getElementById('lUser').value.trim().toUpperCase();
   const p = document.getElementById('lPass').value;
   if (u === 'DAVA' && p === '1e2w3t698') {
     isAdmin = true;
-    sessionStorage.setItem('ndava_admin','1');
+    sessionStorage.setItem('ndava_adm','1');
     closeM('mLogin');
     applyAdminUI();
-    toast('✅ Вітаємо, DAVA! Адмін-панель відкрита.', true);
+    toast('✅ Вітаємо, DAVA!', true);
   } else {
     document.getElementById('lErr').textContent = '❌ Невірний логін або пароль';
     document.getElementById('lUser').focus();
   }
 }
-
 function logout() {
   isAdmin = false;
-  sessionStorage.removeItem('ndava_admin');
+  sessionStorage.removeItem('ndava_adm');
   applyAdminUI();
   toast('👋 Вийшли з панелі продавця.');
 }
-
 function applyAdminUI() {
   const gear = document.getElementById('btnGear');
   const out  = document.getElementById('btnOut');
   const pnl  = document.getElementById('adminPanel');
   const wrap = document.getElementById('wrap');
   if (isAdmin) {
-    gear.classList.add('on');
-    out.style.display = 'block';
-    pnl.classList.add('show');
-    wrap.classList.add('admin-on');
+    gear.classList.add('on'); out.style.display = 'block';
+    pnl.classList.add('show'); wrap.classList.add('admin-on');
   } else {
-    gear.classList.remove('on');
-    out.style.display = 'none';
-    pnl.classList.remove('show');
-    wrap.classList.remove('admin-on');
+    gear.classList.remove('on'); out.style.display = 'none';
+    pnl.classList.remove('show'); wrap.classList.remove('admin-on');
   }
   renderProducts();
 }
 
-// ═══════════════════════════════════════════
-// PHOTO UPLOAD + COMPRESS
-// ═══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
+// PHOTO
+// ══════════════════════════════════════════════════════
 function onFile(e) {
   const f = e.target.files[0];
   if (!f) return;
   if (!f.type.startsWith('image/')) { toast('⚠️ Оберіть файл зображення.'); return; }
-  if (f.size > 15*1024*1024) { toast('⚠️ Файл занадто великий (макс. 15 МБ)'); return; }
-
   const reader = new FileReader();
   reader.onload = ev => {
     const img = new Image();
@@ -645,28 +660,26 @@ function onFile(e) {
       const MAX = 480;
       let w = img.width, h = img.height;
       if (w > MAX || h > MAX) {
-        if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
-        else       { w = Math.round(w * MAX / h); h = MAX; }
+        if (w > h) { h = Math.round(h*MAX/w); w = MAX; }
+        else       { w = Math.round(w*MAX/h); h = MAX; }
       }
       const cv = document.createElement('canvas');
       cv.width = w; cv.height = h;
       cv.getContext('2d').drawImage(img, 0, 0, w, h);
       photo = cv.toDataURL('image/jpeg', 0.65);
-      const kb = Math.round(photo.length * .75 / 1024);
-
+      const kb = Math.round(photo.length*.75/1024);
       document.getElementById('upPrev').src = photo;
       document.getElementById('upPrev').classList.add('show');
       document.getElementById('upPh').style.display = 'none';
       document.getElementById('upArea').classList.add('has');
       document.getElementById('upX').classList.add('show');
       document.getElementById('aImg').value = '';
-      toast(`✅ Фото стиснуто до ~${kb} КБ`, true);
+      toast(`✅ Фото готове (~${kb} КБ)`, true);
     };
     img.src = ev.target.result;
   };
   reader.readAsDataURL(f);
 }
-
 function clearFile(e) {
   if (e) e.stopPropagation();
   photo = null;
@@ -678,36 +691,31 @@ function clearFile(e) {
   document.getElementById('fileInp').value = '';
 }
 
-// ═══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // PUBLISH
-// ═══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 async function publish() {
   const url  = document.getElementById('aImg').value.trim();
   const name = document.getElementById('aName').value.trim();
   const desc = document.getElementById('aDesc').value.trim();
   const tag  = document.getElementById('aTag').value;
-
   if (!name) { toast('⚠️ Введіть назву товару.'); return; }
   if (!desc) { toast('⚠️ Введіть опис товару.'); return; }
-
   const img = photo || url || '';
   products.unshift({ id: nextId++, img, name, desc, tag, soldOut: false });
-
   await save();
   renderProducts();
-
-  document.getElementById('aImg').value  = '';
+  document.getElementById('aImg').value = '';
   document.getElementById('aName').value = '';
   document.getElementById('aDesc').value = '';
   clearFile(null);
-
   toast('✅ Товар опубліковано!', true);
   document.getElementById('grid').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
-// ═══════════════════════════════════════════
-// SOLD OUT
-// ═══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
+// SOLD / DELETE
+// ══════════════════════════════════════════════════════
 async function toggleSold(id) {
   const p = products.find(x => x.id === id);
   if (!p) return;
@@ -716,10 +724,6 @@ async function toggleSold(id) {
   renderProducts();
   toast(p.soldOut ? `⛔ «${p.name}» — Розпродано` : `✅ «${p.name}» — В наявності`, !p.soldOut);
 }
-
-// ═══════════════════════════════════════════
-// DELETE
-// ═══════════════════════════════════════════
 async function delProduct(id) {
   if (!confirm('Видалити цей товар?')) return;
   const p = products.find(x => x.id === id);
@@ -729,105 +733,38 @@ async function delProduct(id) {
   if (p) toast(`🗑 «${p.name}» видалено.`);
 }
 
-// ═══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 // BUY
-// ═══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
 function openBuy(id) {
   const p = products.find(x => x.id === id);
   if (!p || p.soldOut) return;
   document.getElementById('bName').textContent = `«${p.name}»`;
   openM('mBuy');
-  addOrder(p.name);
-}
-
-function addOrder(name) {
   const list = document.getElementById('ordersList');
   const el = document.createElement('div');
   el.className = 'oi';
-  el.innerHTML = `Запит на <span>${x(name)}</span> — <a href="https://t.me/Dava638292" style="color:var(--blue)" target="_blank">@Dava638292</a>`;
+  el.innerHTML = `Запит на <span>${x(p.name)}</span> — <a href="https://t.me/Dava638292" style="color:var(--blue)" target="_blank">@Dava638292</a>`;
   list.prepend(el);
   document.getElementById('ordersWrap').classList.add('show');
   while (list.children.length > 6) list.removeChild(list.lastChild);
 }
 
-// ═══════════════════════════════════════════
-// FIREBASE SETUP MODAL
-// ═══════════════════════════════════════════
-function openCloudSetup() {
-  document.getElementById('fbUrl').value = fbUrl();
-  document.getElementById('cStatus').textContent = '';
-  openM('mCloud');
-}
+// ══════════════════════════════════════════════════════
+// MODALS / TOAST / UTIL
+// ══════════════════════════════════════════════════════
+function openM(id)  { document.getElementById(id).classList.add('open'); document.body.style.overflow='hidden'; }
+function closeM(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
 
-async function connectFirebase() {
-  const url = document.getElementById('fbUrl').value.trim().replace(/\/$/, '');
-  const st  = document.getElementById('cStatus');
-
-  if (!url.startsWith('https://') || !url.includes('firebaseio.com')) {
-    st.textContent = '❌ Невірний URL. Має бути https://....firebaseio.com';
-    st.style.color = '#ff4455'; return;
-  }
-
-  st.textContent = '⏳ Перевіряю підключення...'; st.style.color = '#ffaa00';
-
-  try {
-    // test write
-    const testR = await fetch(url + '/ningaga_dava/ping.json', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ok: true })
-    });
-    if (!testR.ok) throw new Error('HTTP ' + testR.status + ' — перевірте правила бази (test mode)');
-
-    // save URL
-    localStorage.setItem(K_FB_URL, url);
-
-    // upload existing local products to cloud
-    if (products.length > 0) {
-      await fetch(url + FB_PATH, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ products, nextId })
-      });
-    } else {
-      // load from cloud
-      const ld = await fbLoad();
-      if (ld) { products = ld.products; nextId = ld.nextId; cacheLocal(); }
-    }
-
-    st.textContent = '✅ Підключено! Тепер товари видно з будь-якого пристрою.';
-    st.style.color = '#00cc66';
-    setSyncUI('ok');
-    renderProducts();
-    setTimeout(() => closeM('mCloud'), 1500);
-    toast('☁️ Firebase підключено! Збереження хмарне.', true);
-  } catch(e) {
-    st.textContent = '❌ ' + e.message;
-    st.style.color = '#ff4455';
-  }
-}
-
-// ═══════════════════════════════════════════
-// MODAL HELPERS
-// ═══════════════════════════════════════════
-function openM(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow='hidden'; }
-function closeM(id){ document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
-
-// ═══════════════════════════════════════════
-// TOAST
-// ═══════════════════════════════════════════
 function toast(msg, ok=false) {
   const w = document.getElementById('toasts');
   const t = document.createElement('div');
   t.className = 'toast' + (ok?' ok':'');
   t.textContent = msg;
   w.prepend(t);
-  setTimeout(() => { t.style.animation='tout .3s ease forwards'; setTimeout(()=>t.remove(),300); }, 3000);
+  setTimeout(() => { t.style.animation='tout .3s ease forwards'; setTimeout(()=>t.remove(),300); }, 3200);
 }
 
-// ═══════════════════════════════════════════
-// UTIL
-// ═══════════════════════════════════════════
 function x(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
