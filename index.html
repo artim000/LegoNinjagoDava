@@ -3,1058 +3,832 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LEGO NINGAGA DAVA — Фігурки Ніндзяго & Star Wars</title>
+<title>LEGO NINJAGO DAVA — Фігурки Ніндзяго & Star Wars</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg-deep: #0d0000;
-    --bg-dark: #150202;
-    --bg-card: #1c0404;
-    --bg-card-hover: #240606;
-    --red-glow: #ff0030;
-    --red-neon: #ff1a45;
-    --red-soft: #cc0022;
-    --red-dim: #660011;
-    --accent-gold: #ffaa00;
-    --accent-blue: #0088ff;
-    --accent-green: #00cc66;
-    --accent-orange: #ff6600;
-    --text-primary: #fff0f0;
-    --text-secondary: #cc8888;
-    --text-dim: #884444;
-    --border-glow: rgba(255, 0, 48, 0.4);
-    --shadow-neon: 0 0 10px rgba(255,0,48,0.6), 0 0 30px rgba(255,0,48,0.3), 0 0 60px rgba(255,0,48,0.1);
-    --font-display: 'Orbitron', monospace;
-    --font-body: 'Rajdhani', sans-serif;
-  }
+:root {
+  --bg:       #0d0000;
+  --card:     #1c0404;
+  --card2:    #240606;
+  --red:      #ff0030;
+  --redneon:  #ff1a45;
+  --reddim:   #660011;
+  --gold:     #ffaa00;
+  --blue:     #0088ff;
+  --green:    #00cc66;
+  --orange:   #ff6600;
+  --fg:       #fff0f0;
+  --fg2:      #cc8888;
+  --fg3:      #884444;
+  --border:   rgba(255,0,48,.4);
+  --glow:     0 0 10px rgba(255,0,48,.6),0 0 30px rgba(255,0,48,.3);
+  --fd:       'Orbitron',monospace;
+  --fb:       'Rajdhani',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--fb);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(255,0,30,.12) 0%,transparent 70%),repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(255,0,30,.03) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(255,0,30,.03) 60px);pointer-events:none;z-index:0}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--reddim);border-radius:3px}
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+/* ─── HEADER ─── */
+header{position:sticky;top:0;z-index:100;background:rgba(13,0,0,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);box-shadow:0 2px 30px rgba(255,0,30,.15);padding:0 20px;height:66px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-icon{font-size:30px;filter:drop-shadow(0 0 8px var(--red));animation:pd 3s ease-in-out infinite}
+@keyframes pd{0%,100%{filter:drop-shadow(0 0 8px var(--red));transform:scale(1)}50%{filter:drop-shadow(0 0 18px var(--redneon));transform:scale(1.06)}}
+.logo-name{font-family:var(--fd);font-size:clamp(12px,2.5vw,19px);font-weight:900;text-shadow:var(--glow);letter-spacing:2px;text-transform:uppercase}
+.logo-sub{font-size:10px;color:var(--fg2);letter-spacing:4px;text-transform:uppercase;font-weight:300}
+.hdr-contact{font-size:14px;color:var(--fg2);display:flex;align-items:center;gap:6px}
+.tgl{color:var(--blue);text-decoration:none;font-weight:700;transition:color .2s}
+.tgl:hover{color:#44aaff;text-shadow:0 0 10px #08f}
+.hdr-right{display:flex;align-items:center;gap:8px}
+.btn-gear{background:none;border:1px solid var(--reddim);color:var(--fg3);width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .25s}
+.btn-gear:hover{border-color:var(--red);color:var(--redneon);box-shadow:0 0 12px rgba(255,0,48,.4)}
+.btn-gear.on{border-color:var(--gold);color:var(--gold);box-shadow:0 0 12px rgba(255,170,0,.5)}
+.btn-out{background:none;border:1px solid var(--reddim);color:var(--fg3);padding:5px 11px;border-radius:6px;cursor:pointer;font-family:var(--fb);font-size:12px;transition:all .25s;display:none}
+.btn-out:hover{border-color:var(--red);color:var(--redneon)}
 
-  body {
-    background: var(--bg-deep);
-    color: var(--text-primary);
-    font-family: var(--font-body);
-    font-size: 16px;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+/* ─── SYNC PILL ─── */
+.sync-pill{font-size:11px;padding:3px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.1);color:var(--fg3);display:none;letter-spacing:.5px}
 
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255,0,30,0.12) 0%, transparent 70%),
-      repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,0,30,0.03) 60px),
-      repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,0,30,0.03) 60px);
-    pointer-events: none; z-index: 0;
-  }
+/* ─── HERO ─── */
+.hero{position:relative;z-index:1;padding:56px 20px 36px;text-align:center}
+.hero-bg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:clamp(50px,10vw,120px);opacity:.05;pointer-events:none;user-select:none;font-family:serif;letter-spacing:20px}
+.badge{display:inline-block;font-family:var(--fd);font-size:10px;letter-spacing:4px;color:var(--redneon);border:1px solid var(--border);padding:5px 16px;border-radius:20px;margin-bottom:18px;animation:flk 4s ease-in-out infinite}
+@keyframes flk{0%,90%,100%{opacity:1}92%{opacity:.3}94%{opacity:1}96%{opacity:.5}}
+h1{font-family:var(--fd);font-size:clamp(26px,6vw,70px);font-weight:900;text-transform:uppercase;line-height:1.05;letter-spacing:clamp(2px,1vw,6px);text-shadow:var(--glow);margin-bottom:8px}
+h1 span{color:var(--redneon);text-shadow:0 0 20px var(--red),0 0 60px rgba(255,0,48,.4)}
+.hero-sub{font-size:clamp(12px,2vw,17px);color:var(--fg2);letter-spacing:3px;text-transform:uppercase;font-weight:300}
 
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg-deep); }
-  ::-webkit-scrollbar-thumb { background: var(--red-dim); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--red-glow); }
+/* ─── ORDERS TICKER ─── */
+.orders-wrap{display:none;max-width:1400px;margin:0 auto;padding:0 16px 16px;position:relative;z-index:1}
+.orders-wrap.show{display:block}
+.orders-box{background:var(--card);border:1px solid rgba(0,136,255,.25);border-radius:10px;padding:12px 16px}
+.orders-lbl{font-family:var(--fd);font-size:10px;letter-spacing:3px;color:var(--blue);text-transform:uppercase;margin-bottom:8px}
+.orders-list{display:flex;flex-direction:column;gap:5px;max-height:110px;overflow-y:auto}
+.oi{font-size:13px;color:var(--fg2);padding:5px 10px;background:rgba(0,136,255,.05);border-left:2px solid var(--blue);border-radius:0 5px 5px 0;animation:si .3s ease both}
+@keyframes si{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)}}
+.oi span{color:var(--fg);font-weight:600}
 
-  /* ===== HEADER ===== */
-  header {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(13,0,0,0.94);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border-glow);
-    box-shadow: 0 2px 30px rgba(255,0,30,0.15);
-    padding: 0 24px; height: 70px;
-    display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  }
+/* ─── LAYOUT ─── */
+.wrap{position:relative;z-index:1;display:grid;grid-template-columns:1fr;gap:28px;padding:0 16px 60px;max-width:1400px;margin:0 auto}
+@media(min-width:900px){.wrap.admin-on{grid-template-columns:1fr 370px}}
 
-  .header-logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+/* ─── ADMIN PANEL ─── */
+.admin-panel{display:none;order:-1}
+.admin-panel.show{display:block}
+@media(min-width:900px){.admin-panel{order:2}}
+.abox{background:var(--card);border:1px solid rgba(255,170,0,.28);border-radius:12px;padding:20px;box-shadow:0 0 30px rgba(255,170,0,.06);position:sticky;top:82px}
+.abox h3{font-family:var(--fd);font-size:11px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;text-shadow:0 0 10px rgba(255,170,0,.5);margin-bottom:16px;display:flex;align-items:center;gap:7px}
+.fg{margin-bottom:11px}
+.fg label{display:block;font-size:10px;letter-spacing:2px;color:var(--fg2);text-transform:uppercase;margin-bottom:4px;font-weight:600}
+.fg input,.fg textarea,.fg select{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,170,0,.2);border-radius:7px;padding:9px 12px;color:var(--fg);font-family:var(--fb);font-size:14px;outline:none;transition:border-color .2s,box-shadow .2s}
+.fg textarea{resize:vertical;min-height:62px}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--gold);box-shadow:0 0 12px rgba(255,170,0,.2)}
+.fg select option{background:#1a0a00}
 
-  .logo-dragon {
-    font-size: 32px;
-    filter: drop-shadow(0 0 8px var(--red-glow));
-    animation: pulse-dragon 3s ease-in-out infinite;
-  }
-  @keyframes pulse-dragon {
-    0%,100% { filter: drop-shadow(0 0 8px var(--red-glow)); transform: scale(1); }
-    50%      { filter: drop-shadow(0 0 18px var(--red-neon)); transform: scale(1.05); }
-  }
+/* upload */
+.up-area{border:2px dashed rgba(255,170,0,.3);border-radius:10px;padding:16px 12px;text-align:center;cursor:pointer;transition:all .25s;position:relative;background:rgba(255,170,0,.03);overflow:hidden}
+.up-area:hover{border-color:rgba(255,170,0,.65);background:rgba(255,170,0,.06)}
+.up-area.has{border-color:rgba(0,204,102,.5);background:rgba(0,204,102,.04)}
+.up-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;z-index:2}
+.up-icon{font-size:28px;margin-bottom:5px}
+.up-txt{font-size:12px;color:var(--fg2);line-height:1.5}
+.up-txt strong{color:var(--gold);display:block;font-size:13px;margin-bottom:2px}
+.up-prev{width:100%;max-height:140px;object-fit:contain;border-radius:6px;margin-top:8px;display:none}
+.up-prev.show{display:block}
+.up-x{position:absolute;top:7px;right:7px;z-index:10;background:rgba(200,0,20,.85);border:none;color:#fff;width:23px;height:23px;border-radius:50%;cursor:pointer;font-size:13px;display:none;align-items:center;justify-content:center;line-height:1}
+.up-x.show{display:flex}
+.or-row{display:flex;align-items:center;gap:10px;margin:8px 0}
+.or-row::before,.or-row::after{content:'';flex:1;height:1px;background:rgba(255,170,0,.15)}
+.or-row span{font-size:11px;color:var(--fg3);letter-spacing:2px;text-transform:uppercase}
 
-  .logo-text { display: flex; flex-direction: column; line-height: 1; }
-  .logo-main {
-    font-family: var(--font-display);
-    font-size: clamp(13px, 2.5vw, 20px);
-    font-weight: 900; color: var(--text-primary);
-    text-shadow: var(--shadow-neon); letter-spacing: 2px; text-transform: uppercase;
-  }
-  .logo-sub { font-size: 11px; color: var(--text-secondary); letter-spacing: 4px; text-transform: uppercase; font-weight: 300; }
+.btn-pub{width:100%;background:linear-gradient(135deg,#cc8800,#ffaa00);border:none;border-radius:8px;padding:12px;color:#000;font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s;box-shadow:0 4px 20px rgba(255,170,0,.3)}
+.btn-pub:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(255,170,0,.5)}
 
-  .header-contact { font-size: 14px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; }
-  .tg-link { color: var(--accent-blue); text-decoration: none; font-weight: 700; font-size: 15px; transition: all 0.2s; letter-spacing: 1px; }
-  .tg-link:hover { color: #44aaff; text-shadow: 0 0 10px #0088ff; }
+/* firebase row */
+.fb-row{margin-top:13px;padding-top:13px;border-top:1px solid rgba(255,170,0,.1);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.btn-cloud{background:none;border:1px solid rgba(0,136,255,.38);color:rgba(0,136,255,.85);border-radius:6px;padding:6px 11px;font-family:var(--fb);font-size:11px;letter-spacing:1px;cursor:pointer;transition:all .2s}
+.btn-cloud:hover{border-color:var(--blue);color:#44aaff;background:rgba(0,136,255,.07)}
+#syncTxt{font-size:11px;letter-spacing:.5px}
 
-  .header-right { display: flex; align-items: center; gap: 10px; }
+/* ─── GRID ─── */
+.products-section{order:1}
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:10px}
+.sec-ttl{font-family:var(--fd);font-size:clamp(12px,2vw,15px);letter-spacing:3px;text-transform:uppercase}
+.filters{display:flex;gap:7px;flex-wrap:wrap}
+.fb2{background:none;border:1px solid var(--reddim);color:var(--fg3);padding:5px 13px;border-radius:20px;cursor:pointer;font-family:var(--fb);font-size:12px;letter-spacing:1px;transition:all .2s}
+.fb2:hover,.fb2.on{border-color:var(--red);color:var(--redneon);box-shadow:0 0 10px rgba(255,0,48,.2)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:18px}
+@media(max-width:480px){.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:11px}}
 
-  .btn-admin-toggle {
-    background: none; border: 1px solid var(--red-dim); color: var(--text-dim);
-    width: 36px; height: 36px; border-radius: 8px; cursor: pointer; font-size: 18px;
-    display: flex; align-items: center; justify-content: center; transition: all 0.25s;
-  }
-  .btn-admin-toggle:hover { border-color: var(--red-glow); color: var(--red-neon); box-shadow: 0 0 12px rgba(255,0,48,0.4); }
-  .btn-admin-toggle.active { border-color: var(--accent-gold); color: var(--accent-gold); box-shadow: 0 0 12px rgba(255,170,0,0.5); }
+/* ─── CARD ─── */
+.card{background:var(--card);border:1px solid rgba(255,0,30,.12);border-radius:13px;overflow:hidden;display:flex;flex-direction:column;transition:all .3s;position:relative;animation:ca .4s ease both}
+@keyframes ca{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.card:not(.sold):hover{transform:translateY(-5px);border-color:rgba(255,0,30,.38);box-shadow:0 8px 40px rgba(255,0,30,.18);background:var(--card2)}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--redneon),transparent);opacity:0;transition:opacity .3s}
+.card:not(.sold):hover::before{opacity:1}
+.card.sold{opacity:.72}
 
-  .btn-logout {
-    background: none; border: 1px solid var(--red-dim); color: var(--text-dim);
-    padding: 6px 12px; border-radius: 6px; cursor: pointer;
-    font-family: var(--font-body); font-size: 12px; letter-spacing: 1px; transition: all 0.25s; display: none;
-  }
-  .btn-logout:hover { border-color: var(--red-glow); color: var(--red-neon); }
+/* sold banner */
+.sold-banner{display:none;position:absolute;top:13px;left:0;background:linear-gradient(135deg,#cc4400,#ff6600);color:#fff;font-family:var(--fd);font-size:9px;font-weight:700;letter-spacing:2px;padding:5px 18px 5px 12px;text-transform:uppercase;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 50%,calc(100% - 8px) 100%,0 100%);box-shadow:0 2px 14px rgba(255,102,0,.5);z-index:5}
+.card.sold .sold-banner{display:block}
 
-  /* ===== HERO ===== */
-  .hero { position: relative; z-index: 1; padding: 60px 24px 40px; text-align: center; }
-  .hero-kanji {
-    font-size: clamp(40px, 8vw, 100px); opacity: 0.06;
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-    pointer-events: none; user-select: none; font-family: serif; letter-spacing: 20px; line-height: 1;
-  }
-  .hero-badge {
-    display: inline-block; font-family: var(--font-display); font-size: 10px;
-    letter-spacing: 4px; color: var(--red-neon); text-transform: uppercase;
-    border: 1px solid var(--border-glow); padding: 6px 18px; border-radius: 20px;
-    margin-bottom: 20px; animation: badge-flicker 4s ease-in-out infinite;
-  }
-  @keyframes badge-flicker { 0%,90%,100%{opacity:1} 92%{opacity:.4} 94%{opacity:1} 96%{opacity:.6} }
-  .hero-title {
-    font-family: var(--font-display); font-size: clamp(28px, 6vw, 72px); font-weight: 900;
-    color: var(--text-primary); text-transform: uppercase; line-height: 1.05;
-    letter-spacing: clamp(2px, 1vw, 6px); text-shadow: var(--shadow-neon); margin-bottom: 8px;
-  }
-  .hero-title span { color: var(--red-neon); text-shadow: 0 0 20px var(--red-glow), 0 0 60px rgba(255,0,48,0.4); }
-  .hero-sub { font-size: clamp(13px, 2vw, 18px); color: var(--text-secondary); letter-spacing: 3px; text-transform: uppercase; font-weight: 300; }
+.card-img{position:relative;aspect-ratio:1;background:linear-gradient(135deg,#1a0404,#0d0000);overflow:hidden}
+.card-img img{width:100%;height:100%;object-fit:contain;padding:11px;transition:transform .4s ease}
+.card:not(.sold):hover .card-img img{transform:scale(1.07)}
+.no-img{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:58px;opacity:.2}
+.card.sold .card-img::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.4)}
 
-  /* ===== DIVIDER ===== */
-  .divider { display: flex; align-items: center; gap: 16px; padding: 0 24px; margin: 20px 0; position: relative; z-index: 1; }
-  .divider::before,.divider::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--red-dim), transparent); }
-  .divider-icon { font-size: 20px; opacity: 0.5; }
+.card-body{padding:13px;flex:1;display:flex;flex-direction:column;gap:7px}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:11px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;width:fit-content}
+.tag.ninjago{background:rgba(0,204,102,.12);color:var(--green);border:1px solid rgba(0,204,102,.3)}
+.tag.starwars{background:rgba(0,136,255,.12);color:var(--blue);border:1px solid rgba(0,136,255,.3)}
+.card-name{font-family:var(--fd);font-size:clamp(10px,1.4vw,13px);font-weight:700;letter-spacing:1px;line-height:1.3}
+.card-desc{font-size:13px;color:var(--fg2);line-height:1.5;font-weight:300;flex:1}
+.card-acts{display:flex;gap:7px;margin-top:3px}
 
-  /* ===== MAIN LAYOUT ===== */
-  .main-wrap {
-    position: relative; z-index: 1;
-    display: grid; grid-template-columns: 1fr;
-    gap: 32px; padding: 0 16px 60px;
-    max-width: 1400px; margin: 0 auto;
-  }
-  @media (min-width: 900px) { .main-wrap.admin-active { grid-template-columns: 1fr 390px; } }
+.btn-buy{flex:1;background:linear-gradient(135deg,#cc0022,#ff0030);border:none;border-radius:7px;padding:9px;color:#fff;font-family:var(--fd);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .25s;box-shadow:0 2px 12px rgba(255,0,30,.25);position:relative;overflow:hidden}
+.btn-buy::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.12) 50%,transparent 70%);transform:translateX(-100%);transition:transform .4s}
+.btn-buy:not(:disabled):hover::after{transform:translateX(100%)}
+.btn-buy:not(:disabled):hover{transform:translateY(-2px);box-shadow:var(--glow)}
+.btn-buy:disabled{background:rgba(60,10,10,.7);color:rgba(255,102,0,.7);cursor:not-allowed;box-shadow:none;transform:none;border:1px solid rgba(255,102,0,.25)}
 
-  /* ===== ADMIN PANEL ===== */
-  .admin-panel { display: none; order: -1; }
-  .admin-panel.visible { display: block; }
-  @media (min-width: 900px) { .admin-panel { order: 2; } }
+.adm-row{display:none;gap:6px;margin-top:7px;border-top:1px solid rgba(255,170,0,.1);padding-top:9px}
+.admin-on .adm-row{display:flex}
+.btn-sold{flex:1;background:none;border:1px solid rgba(255,102,0,.4);color:rgba(255,102,0,.9);border-radius:6px;padding:7px;font-family:var(--fb);font-size:11px;letter-spacing:1px;cursor:pointer;transition:all .2s;text-align:center}
+.btn-sold:hover{border-color:var(--orange);color:var(--orange);background:rgba(255,102,0,.07)}
+.card.sold .btn-sold{border-color:rgba(0,204,102,.45);color:var(--green)}
+.card.sold .btn-sold:hover{background:rgba(0,204,102,.07)}
+.btn-del{background:none;border:1px solid rgba(255,0,30,.25);color:rgba(255,0,30,.55);width:32px;border-radius:6px;cursor:pointer;font-size:14px;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.btn-del:hover{border-color:var(--red);color:var(--redneon);background:rgba(255,0,30,.08)}
 
-  .admin-box {
-    background: var(--bg-card); border: 1px solid rgba(255,170,0,0.25);
-    border-radius: 12px; padding: 22px;
-    box-shadow: 0 0 30px rgba(255,170,0,0.06);
-    position: sticky; top: 86px;
-  }
-  .admin-box h3 {
-    font-family: var(--font-display); font-size: 12px; letter-spacing: 3px;
-    color: var(--accent-gold); text-transform: uppercase;
-    text-shadow: 0 0 10px rgba(255,170,0,0.5);
-    margin-bottom: 18px; display: flex; align-items: center; gap: 8px;
-  }
+/* empty */
+.empty{grid-column:1/-1;text-align:center;padding:60px 24px;color:var(--fg3)}
+.empty .ei{font-size:58px;margin-bottom:14px;opacity:.4}
+.empty p{font-size:14px;letter-spacing:2px;text-transform:uppercase}
 
-  .form-group { margin-bottom: 12px; }
-  .form-group label { display: block; font-size: 11px; letter-spacing: 2px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 5px; font-weight: 600; }
-  .form-group input, .form-group textarea, .form-group select {
-    width: 100%; background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,170,0,0.2); border-radius: 8px;
-    padding: 10px 14px; color: var(--text-primary);
-    font-family: var(--font-body); font-size: 14px;
-    outline: none; transition: border-color .2s, box-shadow .2s;
-  }
-  .form-group textarea { resize: vertical; min-height: 65px; }
-  .form-group input:focus,.form-group textarea:focus,.form-group select:focus { border-color: var(--accent-gold); box-shadow: 0 0 12px rgba(255,170,0,.2); }
-  .form-group select option { background: #1a0a00; }
+/* ─── MODALS ─── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.87);backdrop-filter:blur(8px);z-index:200;display:flex;align-items:center;justify-content:center;padding:18px;opacity:0;pointer-events:none;transition:opacity .2s}
+.overlay.open{opacity:1;pointer-events:all}
+.mbox{background:var(--card);border:1px solid var(--border);border-radius:15px;padding:28px;width:100%;max-width:420px;box-shadow:0 0 60px rgba(255,0,30,.2);transform:scale(.9);transition:transform .25s;position:relative}
+.overlay.open .mbox{transform:scale(1)}
+.mbox.blue{border-color:rgba(0,136,255,.5);box-shadow:0 0 60px rgba(0,136,255,.2)}
+.mclose{position:absolute;top:14px;right:14px;background:none;border:1px solid var(--reddim);color:var(--fg3);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.mclose:hover{border-color:var(--red);color:var(--redneon)}
+.mttl{font-family:var(--fd);font-size:14px;letter-spacing:2px;text-shadow:var(--glow);margin-bottom:7px;text-align:center;text-transform:uppercase}
+.msub{font-size:13px;color:var(--fg2);text-align:center;margin-bottom:22px;letter-spacing:.5px}
+.merr{font-size:12px;color:var(--redneon);text-align:center;margin-top:9px;min-height:17px}
+.minp{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:7px;padding:11px 15px;color:var(--fg);font-family:var(--fb);font-size:15px;outline:none;transition:border-color .2s,box-shadow .2s;margin-bottom:11px}
+.minp:focus{border-color:var(--redneon);box-shadow:0 0 12px rgba(255,0,48,.25)}
+.btn-login{width:100%;background:linear-gradient(135deg,#cc0022,#ff0030);border:none;border-radius:7px;padding:12px;color:#fff;font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .25s;box-shadow:0 4px 20px rgba(255,0,30,.3)}
+.btn-login:hover{transform:translateY(-2px);box-shadow:var(--glow)}
 
-  /* Upload area */
-  .upload-area {
-    border: 2px dashed rgba(255,170,0,0.3);
-    border-radius: 10px; padding: 18px 12px;
-    text-align: center; cursor: pointer;
-    transition: all 0.25s; position: relative;
-    background: rgba(255,170,0,0.03); overflow: hidden;
-  }
-  .upload-area:hover { border-color: rgba(255,170,0,0.65); background: rgba(255,170,0,0.06); }
-  .upload-area.has-img { border-color: rgba(0,204,102,0.5); background: rgba(0,204,102,0.04); }
-  .upload-area input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; z-index: 2; }
-  .upload-icon { font-size: 30px; margin-bottom: 6px; }
-  .upload-text { font-size: 12px; color: var(--text-secondary); letter-spacing: 0.5px; line-height: 1.5; }
-  .upload-text strong { color: var(--accent-gold); display: block; font-size: 13px; margin-bottom: 2px; }
-  .upload-preview { width: 100%; max-height: 150px; object-fit: contain; border-radius: 6px; margin-top: 8px; display: none; }
-  .upload-preview.visible { display: block; }
-  .upload-clear {
-    position: absolute; top: 8px; right: 8px; z-index: 10;
-    background: rgba(200,0,20,0.85); border: none; color: #fff;
-    width: 24px; height: 24px; border-radius: 50%; cursor: pointer;
-    font-size: 13px; display: none; align-items: center; justify-content: center;
-    line-height: 1;
-  }
-  .upload-clear.visible { display: flex; }
+/* buy modal */
+.bicon{font-size:46px;margin-bottom:11px;text-align:center}
+.bprod{font-family:var(--fd);font-size:12px;color:var(--redneon);letter-spacing:1px;margin-bottom:14px;text-align:center}
+.bmsg{font-size:15px;color:var(--fg);line-height:1.7;margin-bottom:14px;text-align:center}
+.thandle{font-family:var(--fd);font-size:19px;color:var(--blue);text-shadow:0 0 20px rgba(0,136,255,.6);display:block;margin:7px 0 14px;text-decoration:none;text-align:center}
+.thandle:hover{color:#44aaff}
+.btn-tg{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#0066cc,#0088ff);border:none;border-radius:7px;padding:11px 22px;color:#fff;font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:2px;cursor:pointer;text-decoration:none;transition:all .25s;box-shadow:0 4px 20px rgba(0,136,255,.3);margin:0 auto;display:flex;width:fit-content}
+.btn-tg:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(0,136,255,.5)}
 
-  .or-row { display: flex; align-items: center; gap: 10px; margin: 8px 0; }
-  .or-row::before,.or-row::after { content: ''; flex: 1; height: 1px; background: rgba(255,170,0,0.15); }
-  .or-row span { font-size: 11px; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; }
+/* firebase modal */
+.inst{background:rgba(0,136,255,.07);border:1px solid rgba(0,136,255,.2);border-radius:9px;padding:13px;margin-bottom:16px;font-size:13px;color:var(--fg2);line-height:1.8}
+.inst b{color:var(--blue)}
+.inst a{color:var(--blue)}
 
-  .btn-publish {
-    width: 100%; background: linear-gradient(135deg, #cc8800, #ffaa00);
-    border: none; border-radius: 8px; padding: 12px; color: #000;
-    font-family: var(--font-display); font-size: 12px; font-weight: 700;
-    letter-spacing: 2px; text-transform: uppercase; cursor: pointer;
-    transition: all .2s; margin-top: 4px; box-shadow: 0 4px 20px rgba(255,170,0,.3);
-  }
-  .btn-publish:hover { transform: translateY(-2px); box-shadow: 0 6px 30px rgba(255,170,0,.5); }
-  .btn-publish:active { transform: translateY(0); }
+/* ─── FOOTER ─── */
+footer{position:relative;z-index:1;border-top:1px solid var(--border);background:rgba(13,0,0,.8);padding:20px}
+.foot{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.fbrand{font-family:var(--fd);font-size:11px;letter-spacing:2px;color:var(--fg3);text-transform:uppercase}
+.fcontact{font-size:14px;color:var(--fg2);display:flex;align-items:center;gap:7px}
+.fcopy{font-size:11px;color:var(--fg3);letter-spacing:1px}
 
-  /* ===== PRODUCTS ===== */
-  .products-section { order: 1; }
+/* ─── TOAST ─── */
+.toasts{position:fixed;bottom:22px;right:22px;z-index:300;display:flex;flex-direction:column;gap:7px;pointer-events:none}
+.toast{background:var(--card2);border:1px solid var(--border);border-radius:9px;padding:11px 16px;font-size:14px;color:var(--fg);box-shadow:0 4px 20px rgba(255,0,30,.2);animation:tin .3s ease both;max-width:280px}
+.toast.ok{border-color:rgba(0,204,102,.5);box-shadow:0 4px 20px rgba(0,204,102,.15)}
+@keyframes tin{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
+@keyframes tout{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(18px)}}
 
-  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
-  .section-title { font-family: var(--font-display); font-size: clamp(13px, 2vw, 16px); color: var(--text-primary); letter-spacing: 3px; text-transform: uppercase; }
-
-  .filter-btns { display: flex; gap: 8px; flex-wrap: wrap; }
-  .filter-btn { background: none; border: 1px solid var(--red-dim); color: var(--text-dim); padding: 5px 14px; border-radius: 20px; cursor: pointer; font-family: var(--font-body); font-size: 12px; letter-spacing: 1px; transition: all .2s; }
-  .filter-btn:hover,.filter-btn.active { border-color: var(--red-glow); color: var(--red-neon); box-shadow: 0 0 10px rgba(255,0,48,.25); }
-
-  .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
-  @media (max-width: 480px) { .products-grid { grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 12px; } }
-
-  /* ===== PRODUCT CARD ===== */
-  .product-card {
-    background: var(--bg-card); border: 1px solid rgba(255,0,30,0.12);
-    border-radius: 14px; overflow: hidden;
-    display: flex; flex-direction: column;
-    transition: all .3s; position: relative;
-    animation: card-appear .4s ease both;
-  }
-  @keyframes card-appear { from{opacity:0;transform:translateY(20px) scale(.96)} to{opacity:1;transform:translateY(0) scale(1)} }
-  .product-card:not(.sold-out):hover { transform: translateY(-5px); border-color: rgba(255,0,30,.35); box-shadow: 0 8px 40px rgba(255,0,30,.18); background: var(--bg-card-hover); }
-  .product-card::before { content:''; position:absolute; top:0;left:0;right:0; height:2px; background:linear-gradient(90deg,transparent,var(--red-neon),transparent); opacity:0; transition:opacity .3s; }
-  .product-card:not(.sold-out):hover::before { opacity:1; }
-
-  /* Sold out state */
-  .product-card.sold-out { opacity: 0.72; }
-
-  .sold-out-banner {
-    display: none;
-    position: absolute; top: 14px; left: 0;
-    background: linear-gradient(135deg, #cc4400, #ff6600);
-    color: #fff; font-family: var(--font-display);
-    font-size: 9px; font-weight: 700; letter-spacing: 2px;
-    padding: 5px 18px 5px 12px; text-transform: uppercase;
-    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%);
-    box-shadow: 0 2px 14px rgba(255,102,0,.55); z-index: 5;
-  }
-  .product-card.sold-out .sold-out-banner { display: block; }
-
-  .card-img-wrap {
-    position: relative; aspect-ratio: 1;
-    background: linear-gradient(135deg, #1a0404 0%, #0d0000 100%); overflow: hidden;
-  }
-  .card-img-wrap img { width:100%; height:100%; object-fit:contain; padding:12px; transition:transform .4s ease; }
-  .product-card:not(.sold-out):hover .card-img-wrap img { transform: scale(1.06); }
-  .card-no-img { width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:60px;opacity:.2; }
-  .product-card.sold-out .card-img-wrap::after { content:'';position:absolute;inset:0;background:rgba(0,0,0,.4); }
-
-  .card-body { padding: 14px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
-
-  .card-tag { display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:12px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;width:fit-content; }
-  .card-tag.ninjago { background:rgba(0,204,102,.12);color:var(--accent-green);border:1px solid rgba(0,204,102,.3); }
-  .card-tag.starwars { background:rgba(0,136,255,.12);color:var(--accent-blue);border:1px solid rgba(0,136,255,.3); }
-
-  .card-name { font-family:var(--font-display);font-size:clamp(11px,1.4vw,13px);font-weight:700;color:var(--text-primary);letter-spacing:1px;line-height:1.3; }
-  .card-desc { font-size:13px;color:var(--text-secondary);line-height:1.5;font-weight:300;flex:1; }
-
-  .card-actions { display:flex;gap:8px;margin-top:4px; }
-
-  .btn-buy {
-    flex:1; background:linear-gradient(135deg,var(--red-soft),var(--red-glow));
-    border:none;border-radius:8px;padding:9px;color:#fff;
-    font-family:var(--font-display);font-size:10px;font-weight:700;
-    letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .25s;
-    box-shadow:0 2px 12px rgba(255,0,30,.25);position:relative;overflow:hidden;
-  }
-  .btn-buy::after{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.1) 50%,transparent 70%);transform:translateX(-100%);transition:transform .4s;}
-  .btn-buy:not(:disabled):hover::after{transform:translateX(100%);}
-  .btn-buy:not(:disabled):hover{transform:translateY(-2px);box-shadow:var(--shadow-neon);}
-  .btn-buy:disabled{background:rgba(60,10,10,.7);color:rgba(255,102,0,.7);cursor:not-allowed;box-shadow:none;transform:none;border:1px solid rgba(255,102,0,.25);}
-
-  /* Admin buttons on cards — only show when admin-active */
-  .card-admin-row { display:none;gap:6px;margin-top:8px;border-top:1px solid rgba(255,170,0,.1);padding-top:10px; }
-  .admin-active .card-admin-row { display:flex; }
-
-  .btn-sold-toggle {
-    flex:1;background:none;border:1px solid rgba(255,102,0,.4);color:rgba(255,102,0,.9);
-    border-radius:6px;padding:7px 6px;font-family:var(--font-body);font-size:11px;
-    letter-spacing:1px;cursor:pointer;transition:all .2s;text-align:center;
-  }
-  .btn-sold-toggle:hover{border-color:var(--accent-orange);color:var(--accent-orange);background:rgba(255,102,0,.07);}
-  .product-card.sold-out .btn-sold-toggle{border-color:rgba(0,204,102,.45);color:var(--accent-green);}
-  .product-card.sold-out .btn-sold-toggle:hover{border-color:var(--accent-green);background:rgba(0,204,102,.07);}
-
-  .btn-delete-card {
-    background:none;border:1px solid rgba(255,0,30,.25);color:rgba(255,0,30,.55);
-    width:32px;border-radius:6px;cursor:pointer;font-size:14px;transition:all .2s;
-    display:flex;align-items:center;justify-content:center;
-  }
-  .btn-delete-card:hover{border-color:var(--red-glow);color:var(--red-neon);background:rgba(255,0,30,.08);}
-
-  /* ===== EMPTY STATE ===== */
-  .empty-state{grid-column:1/-1;text-align:center;padding:60px 24px;color:var(--text-dim);}
-  .empty-state .empty-icon{font-size:60px;margin-bottom:16px;opacity:.4;}
-  .empty-state p{font-size:15px;letter-spacing:2px;text-transform:uppercase;}
-
-  /* ===== ORDERS ===== */
-  .orders-section{position:relative;z-index:1;padding:0 16px 20px;max-width:1400px;margin:0 auto;}
-  .orders-wrap{background:var(--bg-card);border:1px solid rgba(0,136,255,.2);border-radius:10px;padding:12px 16px;display:none;}
-  .orders-wrap.has-orders{display:block;}
-  .orders-label{font-family:var(--font-display);font-size:10px;letter-spacing:3px;color:var(--accent-blue);text-transform:uppercase;margin-bottom:10px;}
-  .orders-list{display:flex;flex-direction:column;gap:6px;max-height:120px;overflow-y:auto;}
-  .order-item{font-size:13px;color:var(--text-secondary);padding:6px 10px;background:rgba(0,136,255,.05);border-left:2px solid var(--accent-blue);border-radius:0 6px 6px 0;animation:slide-in .3s ease both;}
-  @keyframes slide-in{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
-  .order-item span{color:var(--text-primary);font-weight:600;}
-
-  /* ===== MODAL ===== */
-  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.86);backdrop-filter:blur(8px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s;}
-  .modal-overlay.open{opacity:1;pointer-events:all;}
-  .modal-box{background:var(--bg-card);border:1px solid var(--border-glow);border-radius:16px;padding:32px;width:100%;max-width:420px;box-shadow:0 0 60px rgba(255,0,30,.2);transform:scale(.9);transition:transform .25s;position:relative;}
-  .modal-overlay.open .modal-box{transform:scale(1);}
-  .modal-box.buy-modal{border-color:rgba(0,136,255,.5);box-shadow:0 0 60px rgba(0,136,255,.2);text-align:center;}
-  .modal-title{font-family:var(--font-display);font-size:15px;letter-spacing:2px;color:var(--text-primary);text-shadow:var(--shadow-neon);margin-bottom:8px;text-align:center;}
-  .modal-sub{font-size:13px;color:var(--text-secondary);text-align:center;margin-bottom:24px;letter-spacing:1px;}
-  .modal-error{font-size:12px;color:var(--red-neon);text-align:center;margin-top:10px;min-height:18px;letter-spacing:1px;}
-  .modal-close{position:absolute;top:16px;right:16px;background:none;border:1px solid var(--red-dim);color:var(--text-dim);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s;}
-  .modal-close:hover{border-color:var(--red-glow);color:var(--red-neon);}
-  .form-input-modal{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border-glow);border-radius:8px;padding:12px 16px;color:var(--text-primary);font-family:var(--font-body);font-size:15px;outline:none;transition:border-color .2s,box-shadow .2s;margin-bottom:12px;}
-  .form-input-modal:focus{border-color:var(--red-neon);box-shadow:0 0 12px rgba(255,0,48,.25);}
-  .btn-login{width:100%;background:linear-gradient(135deg,var(--red-soft),var(--red-glow));border:none;border-radius:8px;padding:13px;color:#fff;font-family:var(--font-display);font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .25s;box-shadow:0 4px 20px rgba(255,0,30,.3);}
-  .btn-login:hover{transform:translateY(-2px);box-shadow:var(--shadow-neon);}
-  .buy-modal-icon{font-size:48px;margin-bottom:12px;}
-  .buy-modal-product{font-family:var(--font-display);font-size:13px;color:var(--red-neon);letter-spacing:1px;margin-bottom:16px;}
-  .buy-modal-message{font-size:16px;color:var(--text-primary);line-height:1.7;margin-bottom:16px;}
-  .tg-handle{font-family:var(--font-display);font-size:20px;color:var(--accent-blue);text-shadow:0 0 20px rgba(0,136,255,.6);display:block;margin:8px 0 16px;text-decoration:none;}
-  .tg-handle:hover{color:#44aaff;}
-  .btn-tg{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#0066cc,#0088ff);border:none;border-radius:8px;padding:12px 24px;color:#fff;font-family:var(--font-display);font-size:11px;font-weight:700;letter-spacing:2px;cursor:pointer;text-decoration:none;transition:all .25s;box-shadow:0 4px 20px rgba(0,136,255,.3);}
-  .btn-tg:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(0,136,255,.5);}
-
-  /* ===== FOOTER ===== */
-  footer{position:relative;z-index:1;border-top:1px solid var(--border-glow);background:rgba(13,0,0,.8);padding:24px;}
-  .footer-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
-  .footer-brand{font-family:var(--font-display);font-size:12px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;}
-  .footer-contact{font-size:14px;color:var(--text-secondary);display:flex;align-items:center;gap:8px;}
-  .footer-copy{font-size:11px;color:var(--text-dim);letter-spacing:1px;}
-
-  /* ===== TOAST ===== */
-  .toast-wrap{position:fixed;bottom:24px;right:24px;z-index:300;display:flex;flex-direction:column;gap:8px;pointer-events:none;}
-  .toast{background:var(--bg-card-hover);border:1px solid var(--border-glow);border-radius:10px;padding:12px 18px;font-size:14px;color:var(--text-primary);box-shadow:0 4px 20px rgba(255,0,30,.2);animation:toast-in .3s ease both;max-width:290px;}
-  .toast.success{border-color:rgba(0,204,102,.5);box-shadow:0 4px 20px rgba(0,204,102,.15);}
-  @keyframes toast-in{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
-  @keyframes toast-out{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(20px)}}
-
-  .deco-line{position:fixed;top:0;width:1px;height:100vh;background:linear-gradient(to bottom,transparent,rgba(255,0,30,.07),transparent);pointer-events:none;z-index:0;}
-  .deco-line:nth-child(1){left:5%} .deco-line:nth-child(2){right:5%}
-
-  @media (max-width: 600px) {
-    header{padding:0 14px;}
-    .header-contact{display:none;}
-    .hero{padding:40px 16px 28px;}
-    .main-wrap{padding:0 12px 40px;}
-    .admin-box{padding:16px;}
-    .modal-box{padding:24px 18px;}
-  }
+.deco{position:fixed;top:0;width:1px;height:100vh;background:linear-gradient(to bottom,transparent,rgba(255,0,30,.07),transparent);pointer-events:none;z-index:0}
+.deco:nth-child(1){left:5%}.deco:nth-child(2){right:5%}
+@media(max-width:600px){header{padding:0 13px}.hdr-contact{display:none}.hero{padding:38px 14px 26px}.wrap{padding:0 11px 40px}.abox{padding:15px}.mbox{padding:22px 16px}}
 </style>
 </head>
 <body>
+<div class="deco"></div><div class="deco"></div>
 
-<div class="deco-line"></div>
-<div class="deco-line"></div>
-
-<!-- ===== HEADER ===== -->
+<!-- HEADER -->
 <header>
-  <div class="header-logo">
-    <div class="logo-dragon">🐉</div>
-    <div class="logo-text">
-      <span class="logo-main">LEGO NINGAGA DAVA</span>
-      <span class="logo-sub">Ніндзяго · Star Wars · Фігурки</span>
+  <div class="logo">
+    <div class="logo-icon">🐉</div>
+    <div>
+      <div class="logo-name">LEGO NINJAGO DAVA</div>
+      <div class="logo-sub">Ніндзяго · Star Wars · Фігурки</div>
     </div>
   </div>
-  <div class="header-contact">
-    <span>📱 Зв'язок:</span>
-    <a href="https://t.me/Dava638292" class="tg-link" target="_blank">@Dava638292</a>
+  <div class="hdr-contact">
+    📱 <a href="https://t.me/Dava638292" class="tgl" target="_blank">@Dava638292</a>
   </div>
-  <div class="header-right">
-    <button class="btn-logout" id="btnLogout" onclick="logout()">Вийти</button>
-    <button class="btn-admin-toggle" id="btnAdminToggle" onclick="openLoginModal()" title="Вхід для продавця">⚙️</button>
+  <div class="hdr-right">
+    <span class="sync-pill" id="syncPill">💾</span>
+    <button class="btn-out" id="btnOut" onclick="logout()">Вийти</button>
+    <button class="btn-gear" id="btnGear" onclick="openLogin()" title="Вхід для продавця">⚙️</button>
   </div>
 </header>
 
-<!-- ===== HERO ===== -->
+<!-- HERO -->
 <div class="hero">
-  <div class="hero-kanji">忍者戦士</div>
-  <div class="hero-badge">⚡ офіційний магазин · ukraine</div>
-  <h1 class="hero-title">LEGO <span>NINGAGA</span><br>DAVA</h1>
+  <div class="hero-bg">忍者戦士</div>
+  <div class="badge">⚡ офіційний магазин · ukraine</div>
+  <h1>LEGO <span>NINJAGO</span><br>DAVA</h1>
   <p class="hero-sub">Фігурки · Ніндзяго · Star Wars · Колекції</p>
 </div>
 
-<!-- ===== ORDERS ===== -->
-<div class="orders-section">
-  <div class="orders-wrap" id="ordersWrap">
-    <div class="orders-label">🔴 Стрічка запитів</div>
+<!-- ORDERS -->
+<div class="orders-wrap" id="ordersWrap">
+  <div class="orders-box">
+    <div class="orders-lbl">🔴 Стрічка запитів</div>
     <div class="orders-list" id="ordersList"></div>
   </div>
 </div>
 
-<!-- ===== MAIN ===== -->
-<div class="main-wrap" id="mainWrap">
+<!-- MAIN -->
+<div class="wrap" id="wrap">
 
-  <!-- Admin Panel -->
+  <!-- Admin -->
   <div class="admin-panel" id="adminPanel">
-    <div class="admin-box">
+    <div class="abox">
       <h3>⚙️ Додати товар</h3>
 
-      <div class="form-group">
-        <label>📷 Фото товару</label>
-        <div class="upload-area" id="uploadArea">
-          <input type="file" id="photoInput" accept="image/*" onchange="handlePhotoUpload(event)">
-          <button class="upload-clear" id="uploadClear" onclick="clearPhoto(event)">✕</button>
-          <div id="uploadPlaceholder">
-            <div class="upload-icon">📱</div>
-            <div class="upload-text">
-              <strong>Натисни, щоб вибрати фото</strong>
-              З телефону або комп'ютера (до 5 МБ)
-            </div>
+      <div class="fg">
+        <label>📷 Фото (з телефону / комп'ютера)</label>
+        <div class="up-area" id="upArea">
+          <input type="file" id="fileInp" accept="image/*" onchange="onFile(event)">
+          <button class="up-x" id="upX" onclick="clearFile(event)">✕</button>
+          <div id="upPh">
+            <div class="up-icon">📱</div>
+            <div class="up-txt"><strong>Натисни, щоб вибрати фото</strong>З телефону або комп'ютера</div>
           </div>
-          <img class="upload-preview" id="uploadPreview" alt="preview">
+          <img class="up-prev" id="upPrev" alt="">
         </div>
       </div>
 
-      <div class="or-row"><span>або URL</span></div>
+      <div class="or-row"><span>або посилання</span></div>
 
-      <div class="form-group">
-        <label>Посилання на зображення</label>
-        <input type="url" id="adminImg" placeholder="https://example.com/img.jpg">
+      <div class="fg">
+        <label>URL зображення</label>
+        <input type="url" id="aImg" placeholder="https://example.com/img.jpg">
       </div>
-
-      <div class="form-group">
+      <div class="fg">
         <label>Назва товару</label>
-        <input type="text" id="adminName" placeholder="Назва фігурки...">
+        <input type="text" id="aName" placeholder="Назва фігурки...">
       </div>
-      <div class="form-group">
-        <label>Опис товару</label>
-        <textarea id="adminDesc" placeholder="Короткий опис..."></textarea>
+      <div class="fg">
+        <label>Опис</label>
+        <textarea id="aDesc" placeholder="Короткий опис..."></textarea>
       </div>
-      <div class="form-group">
+      <div class="fg">
         <label>Серія</label>
-        <select id="adminTag">
-          <option value="ninjago">🟢 Ніньдзяго</option>
-          <option value="starwars">🔵 Стар Ворс</option>
+        <select id="aTag">
+          <option value="ninjago">🟢 Ніндзяго</option>
+          <option value="starwars">🔵 Star Wars</option>
         </select>
       </div>
-      <button class="btn-publish" onclick="publishProduct()">⚡ Опублікувати</button>
+      <button class="btn-pub" onclick="publish()">⚡ Опублікувати</button>
 
-      <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,170,0,0.1);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
-        <div id="syncStatus" style="font-size:12px;letter-spacing:1px;"><span style="color:#884444">💾 Локально</span></div>
-        <button onclick="openCloudModal()" style="background:none;border:1px solid rgba(0,136,255,0.4);color:rgba(0,136,255,0.85);border-radius:6px;padding:6px 12px;font-family:var(--font-body);font-size:11px;letter-spacing:1px;cursor:pointer;transition:all .2s;">☁️ Хмарне сховище</button>
+      <div class="fb-row">
+        <div id="syncTxt" style="font-size:11px;color:var(--fg3)">💾 Локальне збереження</div>
+        <button class="btn-cloud" onclick="openCloudSetup()">☁️ Налаштувати хмару</button>
       </div>
     </div>
   </div>
 
   <!-- Products -->
   <div class="products-section">
-    <div class="section-header">
-      <div class="section-title">🔥 Вітрина товарів</div>
-      <div class="filter-btns">
-        <button class="filter-btn active" onclick="filterProducts('all',this)">Всі</button>
-        <button class="filter-btn" onclick="filterProducts('ninjago',this)">Ніньдзяго</button>
-        <button class="filter-btn" onclick="filterProducts('starwars',this)">Star Wars</button>
+    <div class="sec-hdr">
+      <div class="sec-ttl">🔥 Вітрина товарів</div>
+      <div class="filters">
+        <button class="fb2 on" onclick="setFilter('all',this)">Всі</button>
+        <button class="fb2" onclick="setFilter('ninjago',this)">Ніндзяго</button>
+        <button class="fb2" onclick="setFilter('starwars',this)">Star Wars</button>
       </div>
     </div>
-    <div class="products-grid" id="productsGrid"></div>
+    <div class="grid" id="grid"></div>
   </div>
-
 </div>
 
-<div class="divider" style="position:relative;z-index:1;"><div class="divider-icon">⚔</div></div>
+<div style="display:flex;align-items:center;gap:16px;padding:0 24px;margin:20px 0;position:relative;z-index:1;">
+  <div style="flex:1;height:1px;background:linear-gradient(to right,transparent,var(--reddim),transparent)"></div>
+  <span style="font-size:20px;opacity:.5">⚔</span>
+  <div style="flex:1;height:1px;background:linear-gradient(to right,transparent,var(--reddim),transparent)"></div>
+</div>
 
-<!-- ===== FOOTER ===== -->
+<!-- FOOTER -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-brand">🐉 Lego Ningaga DAVA</div>
-    <div class="footer-contact">📱 Замовлення:&nbsp;<a href="https://t.me/Dava638292" class="tg-link" target="_blank">@Dava638292</a></div>
-    <div class="footer-copy">© 2025 Lego Ningaga DAVA</div>
+  <div class="foot">
+    <div class="fbrand">🐉 Lego Ninjago Dava</div>
+    <div class="fcontact">📱 Замовлення: <a href="https://t.me/Dava638292" class="tgl" target="_blank">@Dava638292</a></div>
+    <div class="fcopy">© 2025 Lego Ninjago DAVA</div>
   </div>
 </footer>
 
-<div class="toast-wrap" id="toastWrap"></div>
+<div class="toasts" id="toasts"></div>
 
 <!-- MODAL: LOGIN -->
-<div class="modal-overlay" id="loginModal">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('loginModal')">✕</button>
-    <div class="modal-title">🔐 ВХІД ПРОДАВЦЯ</div>
-    <div class="modal-sub">Введіть дані для доступу до адмін-панелі</div>
-    <input type="text" class="form-input-modal" id="loginUser" placeholder="Логін" autocomplete="off">
-    <input type="password" class="form-input-modal" id="loginPass" placeholder="Пароль" autocomplete="off">
+<div class="overlay" id="mLogin">
+  <div class="mbox">
+    <button class="mclose" onclick="closeM('mLogin')">✕</button>
+    <div class="mttl">🔐 Вхід продавця</div>
+    <div class="msub">Введіть дані для адмін-панелі</div>
+    <input class="minp" id="lUser" placeholder="Логін" autocomplete="off">
+    <input class="minp" id="lPass" type="password" placeholder="Пароль" autocomplete="off">
     <button class="btn-login" onclick="doLogin()">УВІЙТИ →</button>
-    <div class="modal-error" id="loginError"></div>
+    <div class="merr" id="lErr"></div>
   </div>
 </div>
 
 <!-- MODAL: BUY -->
-<div class="modal-overlay" id="buyModal">
-  <div class="modal-box buy-modal">
-    <button class="modal-close" onclick="closeModal('buyModal')">✕</button>
-    <div class="buy-modal-icon">🛒</div>
-    <div class="buy-modal-product" id="buyModalName"></div>
-    <div class="buy-modal-message">Для оформлення замовлення пишіть нам у Telegram:</div>
-    <a href="https://t.me/Dava638292" target="_blank" class="tg-handle">@Dava638292</a>
+<div class="overlay" id="mBuy">
+  <div class="mbox blue">
+    <button class="mclose" onclick="closeM('mBuy')">✕</button>
+    <div class="bicon">🛒</div>
+    <div class="bprod" id="bName"></div>
+    <div class="bmsg">Для оформлення замовлення пишіть нам у Telegram:</div>
+    <a href="https://t.me/Dava638292" target="_blank" class="thandle">@Dava638292</a>
     <a href="https://t.me/Dava638292" target="_blank" class="btn-tg">✈️ Написати в Telegram</a>
   </div>
 </div>
 
-<!-- MODAL: CLOUD CONFIG -->
-<div class="modal-overlay" id="cloudModal">
-  <div class="modal-box" style="max-width:480px;border-color:rgba(0,136,255,0.45);box-shadow:0 0 60px rgba(0,136,255,0.18);">
-    <button class="modal-close" onclick="closeModal('cloudModal')">✕</button>
-    <div class="modal-title" style="color:#44aaff;text-shadow:0 0 20px rgba(0,136,255,0.5);">☁️ ХМАРНЕ СХОВИЩЕ</div>
-    <div class="modal-sub" style="margin-bottom:10px;">JSONbin.io — безкоштовно, без реєстрації карти</div>
+<!-- MODAL: FIREBASE SETUP -->
+<div class="overlay" id="mCloud">
+  <div class="mbox blue" style="max-width:480px">
+    <button class="mclose" onclick="closeM('mCloud')">✕</button>
+    <div class="mttl" style="color:#44aaff;text-shadow:0 0 20px rgba(0,136,255,.5)">☁️ Хмарне збереження</div>
+    <div class="msub">Firebase — безкоштовно, без карти, 3 хв налаштування</div>
 
-    <!-- Instructions -->
-    <div style="background:rgba(0,136,255,0.07);border:1px solid rgba(0,136,255,0.2);border-radius:10px;padding:14px;margin-bottom:18px;font-size:13px;color:var(--text-secondary);line-height:1.7;">
-      <b style="color:var(--accent-blue);">Як налаштувати (1 раз):</b><br>
-      1. Перейди на <a href="https://jsonbin.io" target="_blank" style="color:var(--accent-blue);">jsonbin.io</a> → зареєструйся безкоштовно<br>
-      2. Після входу: натисни <b style="color:#fff">API Keys</b> → скопіюй ключ<br>
-      3. Встав ключ нижче → натисни <b style="color:#00cc66">«Створити Bin»</b><br>
-      4. Скопіюй Bin ID → натисни <b style="color:#00cc66">«Підключити»</b>
+    <div class="inst">
+      <b>Як підключити (1 раз назавжди):</b><br>
+      1. Іди на <a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a><br>
+      2. <b>«Add project»</b> → введи будь-яку назву → «Continue»<br>
+      3. <b>Build → Realtime Database → Create Database</b><br>
+      4. Обери <b>«Start in test mode»</b> → «Enable»<br>
+      5. Скопіюй URL бази (вигляд: <b>https://ім'я-default-rtdb.firebaseio.com</b>)<br>
+      6. Встав URL нижче → натисни <b>«Підключити»</b>
     </div>
 
-    <div class="form-group">
-      <label style="color:var(--accent-blue);">API ключ (X-Master-Key)</label>
-      <input type="text" class="form-input-modal" id="cfgApiKey" placeholder="$2b$10$..." style="border-color:rgba(0,136,255,0.3);margin-bottom:0;">
+    <div class="fg" style="margin-bottom:8px">
+      <label style="color:var(--blue)">Firebase Database URL</label>
+      <input class="minp" id="fbUrl" placeholder="https://my-project-default-rtdb.firebaseio.com" style="border-color:rgba(0,136,255,.35);margin-bottom:0">
     </div>
-    <div style="display:flex;gap:8px;align-items:flex-end;margin:10px 0 14px;">
-      <div class="form-group" style="flex:1;margin:0;">
-        <label style="color:var(--accent-blue);">Bin ID</label>
-        <input type="text" class="form-input-modal" id="cfgBinId" placeholder="6507a3b2..." style="border-color:rgba(0,136,255,0.3);margin-bottom:0;">
-      </div>
-      <button onclick="createNewBin()" style="background:linear-gradient(135deg,#005599,#0077cc);border:none;border-radius:8px;padding:12px 14px;color:#fff;font-family:var(--font-body);font-size:12px;letter-spacing:1px;cursor:pointer;white-space:nowrap;flex-shrink:0;">+ Створити Bin</button>
-    </div>
-
-    <div id="cfgStatus" style="font-size:13px;min-height:18px;margin-bottom:14px;text-align:center;letter-spacing:1px;"></div>
-
-    <button onclick="saveCloudConfig()" style="width:100%;background:linear-gradient(135deg,#005599,#0088ff);border:none;border-radius:8px;padding:13px;color:#fff;font-family:var(--font-display);font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 20px rgba(0,136,255,0.3);">✅ ПІДКЛЮЧИТИ</button>
+    <div id="cStatus" style="font-size:13px;min-height:18px;margin:8px 0 14px;text-align:center;letter-spacing:.5px"></div>
+    <button onclick="connectFirebase()" style="width:100%;background:linear-gradient(135deg,#005599,#0088ff);border:none;border-radius:8px;padding:12px;color:#fff;font-family:var(--fd);font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 20px rgba(0,136,255,.3)">✅ ПІДКЛЮЧИТИ</button>
   </div>
 </div>
 
 <script>
-// ============================================================
-// ☁️ КОНФІГ ХМАРНОГО СХОВИЩА (JSONbin.io)
-// Заповнюється адміном через кнопку ⚙️ → Хмара
-// ============================================================
-const LS_BIN_ID  = 'ningaga_bin_id';
-const LS_API_KEY = 'ningaga_api_key';
-const LS_CACHE   = 'ningaga_cache_v3';
-const LS_NEXT_ID = 'ningaga_next_id_v3';
-const JSONBIN_URL = 'https://api.jsonbin.io/v3/b';
+// ═══════════════════════════════════════════
+// STORAGE KEYS
+// ═══════════════════════════════════════════
+const K_FB_URL  = 'ndava_fb_url';
+const K_CACHE   = 'ndava_cache_v4';
+const K_NEXTID  = 'ndava_nid_v4';
+const FB_PATH   = '/ningaga_dava/products.json';
 
-function getCfg() {
-  return {
-    binId:  localStorage.getItem(LS_BIN_ID)  || '',
-    apiKey: localStorage.getItem(LS_API_KEY) || ''
-  };
-}
-function hasCfg() {
-  const c = getCfg();
-  return c.binId.length > 5 && c.apiKey.length > 5;
-}
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+let products = [];
+let nextId   = 1;
+let filter   = 'all';
+let isAdmin  = sessionStorage.getItem('ndava_admin') === '1';
+let photo    = null;
 
-// ============================================================
-// 💾 CLOUD LOAD
-// ============================================================
-async function cloudLoad() {
-  if (!hasCfg()) return null;
-  const { binId, apiKey } = getCfg();
+function fbUrl() { return localStorage.getItem(K_FB_URL) || ''; }
+function hasCloud() { return fbUrl().startsWith('https://') && fbUrl().length > 20; }
+
+// ═══════════════════════════════════════════
+// FIREBASE REST
+// ═══════════════════════════════════════════
+async function fbLoad() {
   try {
-    const r = await fetch(`${JSONBIN_URL}/${binId}/latest`, {
-      headers: { 'X-Master-Key': apiKey }
-    });
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    const data = await r.json();
-    return data.record || null;
-  } catch(e) {
-    console.warn('Cloud load failed:', e);
-    return null;
-  }
+    const r = await fetch(fbUrl() + FB_PATH);
+    if (!r.ok) return null;
+    const d = await r.json();
+    if (!d) return null;
+    return { products: d.products || [], nextId: d.nextId || 1 };
+  } catch(e) { return null; }
 }
 
-// ============================================================
-// ☁️ CLOUD SAVE
-// ============================================================
-async function cloudSave() {
-  if (!hasCfg()) return false;
-  const { binId, apiKey } = getCfg();
-  setSyncStatus('saving');
+async function fbSave() {
+  if (!hasCloud()) return false;
+  setSyncUI('saving');
   try {
-    const payload = { products, nextId };
-    const r = await fetch(`${JSONBIN_URL}/${binId}`, {
+    const r = await fetch(fbUrl() + FB_PATH, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Master-Key': apiKey
-      },
-      body: JSON.stringify(payload)
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ products, nextId })
     });
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    // also cache locally
-    localStorage.setItem(LS_CACHE,   JSON.stringify(products));
-    localStorage.setItem(LS_NEXT_ID, String(nextId));
-    setSyncStatus('ok');
+    if (!r.ok) throw new Error(r.status);
+    cacheLocal();
+    setSyncUI('ok');
     return true;
   } catch(e) {
-    console.warn('Cloud save failed:', e);
-    setSyncStatus('error');
-    // fallback to local cache
-    try {
-      localStorage.setItem(LS_CACHE,   JSON.stringify(products));
-      localStorage.setItem(LS_NEXT_ID, String(nextId));
-    } catch(_) {}
+    setSyncUI('err');
+    cacheLocal();
     return false;
   }
 }
 
-// ============================================================
-// SAVE WRAPPER
-// ============================================================
-async function saveProducts() {
-  const ok = await cloudSave();
-  if (!ok && !hasCfg()) {
-    // no cloud configured — local only
-    try {
-      localStorage.setItem(LS_CACHE,   JSON.stringify(products));
-      localStorage.setItem(LS_NEXT_ID, String(nextId));
-    } catch(_) {}
+function cacheLocal() {
+  try {
+    localStorage.setItem(K_CACHE,  JSON.stringify(products));
+    localStorage.setItem(K_NEXTID, String(nextId));
+  } catch(_) {}
+}
+
+function loadCache() {
+  try {
+    const r = localStorage.getItem(K_CACHE);
+    products = r ? JSON.parse(r) : [];
+    nextId   = parseInt(localStorage.getItem(K_NEXTID) || '1', 10);
+  } catch(_) { products = []; nextId = 1; }
+}
+
+async function save() {
+  if (hasCloud()) {
+    await fbSave();
+  } else {
+    cacheLocal();
+    setSyncUI('local');
   }
 }
 
-// ============================================================
-// SYNC STATUS INDICATOR
-// ============================================================
-function setSyncStatus(state) {
-  const el = document.getElementById('syncStatus');
-  if (!el) return;
-  const map = {
-    off:    { icon:'💾', text:'Локально', color:'#884444' },
-    ok:     { icon:'☁️', text:'Збережено', color:'#00cc66' },
-    saving: { icon:'⏳', text:'Зберігаю...', color:'#ffaa00' },
-    error:  { icon:'⚠️', text:'Помилка хмари', color:'#ff6600' },
-    loading:{ icon:'⏳', text:'Завантажую...', color:'#0088ff' },
+// ═══════════════════════════════════════════
+// SYNC UI
+// ═══════════════════════════════════════════
+function setSyncUI(s) {
+  const txt  = document.getElementById('syncTxt');
+  const pill = document.getElementById('syncPill');
+  const map  = {
+    local:  { t:'💾 Локальне збереження', c:'#884444', p:'💾 Локально' },
+    ok:     { t:'☁️ Збережено в хмарі',  c:'#00cc66', p:'☁️ В хмарі' },
+    saving: { t:'⏳ Зберігаю...',         c:'#ffaa00', p:'⏳ ...' },
+    err:    { t:'⚠️ Помилка хмари',       c:'#ff6600', p:'⚠️ Помилка' },
+    loading:{ t:'⏳ Завантажую...',        c:'#0088ff', p:'⏳ ...' },
   };
-  const s = map[state] || map.off;
-  el.innerHTML = `<span style="color:${s.color}">${s.icon} ${s.text}</span>`;
+  const m = map[s] || map.local;
+  if (txt) { txt.textContent = m.t; txt.style.color = m.c; }
+  if (pill) { pill.textContent = m.p; pill.style.color = m.c; pill.style.borderColor = m.c+'66'; pill.style.display = ''; }
 }
 
-// ============================================================
-// STATE
-// ============================================================
-let products      = [];
-let nextId        = 1;
-let currentFilter = 'all';
-let isAdmin       = sessionStorage.getItem('ningaga_admin') === 'true';
-let pendingPhoto  = null;
-
-// ============================================================
+// ═══════════════════════════════════════════
 // INIT
-// ============================================================
+// ═══════════════════════════════════════════
 window.addEventListener('DOMContentLoaded', async () => {
-  // Show loading
-  document.getElementById('productsGrid').innerHTML =
-    `<div class="empty-state"><div class="empty-icon" style="animation:pulse-dragon 1s infinite">⏳</div><p>Завантажую товари...</p></div>`;
+  const g = document.getElementById('grid');
+  g.innerHTML = `<div class="empty"><div class="ei">⏳</div><p>Завантажую товари...</p></div>`;
 
-  if (hasCfg()) {
-    setSyncStatus('loading');
-    const cloud = await cloudLoad();
-    if (cloud && Array.isArray(cloud.products)) {
-      products = cloud.products;
-      nextId   = cloud.nextId || products.length + 1;
-      // update local cache
-      try {
-        localStorage.setItem(LS_CACHE,   JSON.stringify(products));
-        localStorage.setItem(LS_NEXT_ID, String(nextId));
-      } catch(_) {}
-      setSyncStatus('ok');
+  if (hasCloud()) {
+    setSyncUI('loading');
+    const d = await fbLoad();
+    if (d) {
+      products = d.products;
+      nextId   = d.nextId;
+      cacheLocal();
+      setSyncUI('ok');
     } else {
-      // cloud empty or error — try local cache
-      loadFromCache();
-      setSyncStatus(hasCfg() ? 'error' : 'off');
+      loadCache();
+      setSyncUI('err');
+      toast('⚠️ Хмара недоступна, показую збережені дані');
     }
   } else {
-    // no cloud config — load from local cache
-    loadFromCache();
-    setSyncStatus('off');
+    loadCache();
+    setSyncUI('local');
   }
 
   renderProducts();
-  updateAdminUI();
+  applyAdminUI();
 
-  document.querySelectorAll('.modal-overlay').forEach(el => {
-    el.addEventListener('click', e => { if (e.target === el) closeModal(el.id); });
-  });
-  ['loginUser','loginPass'].forEach(id => {
-    document.getElementById(id).addEventListener('keydown', e => { if (e.key==='Enter') doLogin(); });
-  });
+  document.querySelectorAll('.overlay').forEach(el =>
+    el.addEventListener('click', e => { if (e.target === el) closeM(el.id); })
+  );
+  document.getElementById('lUser').addEventListener('keydown', e => e.key==='Enter' && doLogin());
+  document.getElementById('lPass').addEventListener('keydown', e => e.key==='Enter' && doLogin());
 });
 
-function loadFromCache() {
-  try {
-    const r = localStorage.getItem(LS_CACHE);
-    products = r ? JSON.parse(r) : [];
-    nextId   = parseInt(localStorage.getItem(LS_NEXT_ID) || '1', 10);
-  } catch(e) { products = []; nextId = 1; }
-}
-
-// ============================================================
-// RENDER PRODUCTS
-// ============================================================
+// ═══════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════
 function renderProducts() {
-  const grid = document.getElementById('productsGrid');
-  const list = currentFilter === 'all' ? products : products.filter(p => p.tag === currentFilter);
+  const g = document.getElementById('grid');
+  const list = filter === 'all' ? products : products.filter(p => p.tag === filter);
 
   if (!list.length) {
-    grid.innerHTML = `<div class="empty-state">
-      <div class="empty-icon">📦</div>
-      <p>${products.length === 0 ? 'Товарів ще немає — увійдіть і додайте першу фігурку!' : 'У цій категорії поки немає товарів'}</p>
+    g.innerHTML = `<div class="empty">
+      <div class="ei">📦</div>
+      <p>${products.length === 0 ? 'Ще немає товарів — увійдіть і додайте першу фігурку!' : 'Немає товарів у цій категорії'}</p>
     </div>`;
     return;
   }
 
-  grid.innerHTML = list.map((p, i) => {
-    const sc  = p.soldOut ? 'sold-out' : '';
-    const src = p.img || '';
-    const tl  = p.tag === 'ninjago' ? '🟢 Ніньдзяго' : '🔵 Star Wars';
-    const sl  = p.soldOut ? '✅ Знову в наявності' : '⛔ Розпродано';
-    const bd  = p.soldOut ? 'disabled' : '';
-    const bt  = p.soldOut ? '⛔ Розпродано' : 'Купити →';
+  g.innerHTML = list.map((p, i) => {
+    const sc = p.soldOut ? 'sold' : '';
+    const sl = p.soldOut ? '✅ В наявності' : '⛔ Розпродано';
+    const bt = p.soldOut ? '⛔ Розпродано' : 'Купити →';
+    const bd = p.soldOut ? 'disabled' : '';
+    const tl = p.tag === 'ninjago' ? '🟢 Ніндзяго' : '🔵 Star Wars';
+    const src= p.img || '';
     return `
-    <div class="product-card ${sc}" id="card-${p.id}" style="animation-delay:${i*.05}s">
-      <div class="sold-out-banner">Розпродано</div>
-      <div class="card-img-wrap">
-        ${src ? `<img src="${esc(src)}" alt="${esc(p.name)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
-        <div class="card-no-img" style="${src?'display:none':''}">
+    <div class="card ${sc}" id="c${p.id}" style="animation-delay:${i*.05}s">
+      <div class="sold-banner">Розпродано</div>
+      <div class="card-img">
+        ${src ? `<img src="${x(src)}" alt="${x(p.name)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
+        <div class="no-img" style="${src?'display:none':''}">
           ${p.tag==='ninjago'?'🥷':'⚡'}
         </div>
       </div>
       <div class="card-body">
-        <span class="card-tag ${p.tag}">${tl}</span>
-        <div class="card-name">${esc(p.name)}</div>
-        <div class="card-desc">${esc(p.desc)}</div>
-        <div class="card-actions">
-          <button class="btn-buy" ${bd} onclick="openBuyModal(${p.id})">${bt}</button>
+        <span class="tag ${p.tag}">${tl}</span>
+        <div class="card-name">${x(p.name)}</div>
+        <div class="card-desc">${x(p.desc)}</div>
+        <div class="card-acts">
+          <button class="btn-buy" ${bd} onclick="openBuy(${p.id})">${bt}</button>
         </div>
-        <div class="card-admin-row">
-          <button class="btn-sold-toggle" onclick="toggleSoldOut(${p.id})">${sl}</button>
-          <button class="btn-delete-card" onclick="deleteProduct(${p.id})" title="Видалити">🗑</button>
+        <div class="adm-row">
+          <button class="btn-sold" onclick="toggleSold(${p.id})">${sl}</button>
+          <button class="btn-del" onclick="delProduct(${p.id})" title="Видалити">🗑</button>
         </div>
       </div>
     </div>`;
   }).join('');
 }
 
-// ============================================================
+// ═══════════════════════════════════════════
 // FILTER
-// ============================================================
-function filterProducts(tag, btn) {
-  currentFilter = tag;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+// ═══════════════════════════════════════════
+function setFilter(tag, btn) {
+  filter = tag;
+  document.querySelectorAll('.fb2').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
   renderProducts();
 }
 
-// ============================================================
+// ═══════════════════════════════════════════
 // AUTH
-// ============================================================
-function openLoginModal() {
-  if (isAdmin) { document.getElementById('adminPanel').scrollIntoView({behavior:'smooth',block:'start'}); return; }
-  document.getElementById('loginUser').value = '';
-  document.getElementById('loginPass').value = '';
-  document.getElementById('loginError').textContent = '';
-  openModal('loginModal');
-  setTimeout(() => document.getElementById('loginUser').focus(), 100);
+// ═══════════════════════════════════════════
+function openLogin() {
+  if (isAdmin) { document.getElementById('adminPanel').scrollIntoView({behavior:'smooth'}); return; }
+  document.getElementById('lUser').value = '';
+  document.getElementById('lPass').value = '';
+  document.getElementById('lErr').textContent = '';
+  openM('mLogin');
+  setTimeout(() => document.getElementById('lUser').focus(), 100);
 }
 
 function doLogin() {
-  const u = document.getElementById('loginUser').value.trim().toUpperCase();
-  const p = document.getElementById('loginPass').value;
+  const u = document.getElementById('lUser').value.trim().toUpperCase();
+  const p = document.getElementById('lPass').value;
   if (u === 'DAVA' && p === '1e2w3t698') {
     isAdmin = true;
-    sessionStorage.setItem('ningaga_admin','true');
-    closeModal('loginModal');
-    updateAdminUI();
-    showToast('✅ Вітаємо, DAVA! Адмін-панель відкрита.', true);
+    sessionStorage.setItem('ndava_admin','1');
+    closeM('mLogin');
+    applyAdminUI();
+    toast('✅ Вітаємо, DAVA! Адмін-панель відкрита.', true);
   } else {
-    document.getElementById('loginError').textContent = '❌ Невірний логін або пароль';
-    document.getElementById('loginUser').focus();
+    document.getElementById('lErr').textContent = '❌ Невірний логін або пароль';
+    document.getElementById('lUser').focus();
   }
 }
 
 function logout() {
   isAdmin = false;
-  sessionStorage.removeItem('ningaga_admin');
-  updateAdminUI();
-  showToast('👋 Ви вийшли з панелі продавця.');
+  sessionStorage.removeItem('ndava_admin');
+  applyAdminUI();
+  toast('👋 Вийшли з панелі продавця.');
 }
 
-function updateAdminUI() {
-  const toggle  = document.getElementById('btnAdminToggle');
-  const logoutB = document.getElementById('btnLogout');
-  const panel   = document.getElementById('adminPanel');
-  const wrap    = document.getElementById('mainWrap');
+function applyAdminUI() {
+  const gear = document.getElementById('btnGear');
+  const out  = document.getElementById('btnOut');
+  const pnl  = document.getElementById('adminPanel');
+  const wrap = document.getElementById('wrap');
   if (isAdmin) {
-    toggle.classList.add('active');
-    toggle.title = 'Адмін-панель активна';
-    logoutB.style.display = 'block';
-    panel.classList.add('visible');
-    wrap.classList.add('admin-active');
+    gear.classList.add('on');
+    out.style.display = 'block';
+    pnl.classList.add('show');
+    wrap.classList.add('admin-on');
   } else {
-    toggle.classList.remove('active');
-    toggle.title = 'Вхід для продавця';
-    logoutB.style.display = 'none';
-    panel.classList.remove('visible');
-    wrap.classList.remove('admin-active');
+    gear.classList.remove('on');
+    out.style.display = 'none';
+    pnl.classList.remove('show');
+    wrap.classList.remove('admin-on');
   }
   renderProducts();
 }
 
-// ============================================================
-// PHOTO UPLOAD — з автостисненням до ~80КБ
-// ============================================================
-function handlePhotoUpload(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  if (!file.type.startsWith('image/')) { showToast('⚠️ Оберіть файл зображення.'); return; }
-  if (file.size > 15 * 1024 * 1024) { showToast('⚠️ Файл занадто великий. Максимум 15 МБ.'); return; }
+// ═══════════════════════════════════════════
+// PHOTO UPLOAD + COMPRESS
+// ═══════════════════════════════════════════
+function onFile(e) {
+  const f = e.target.files[0];
+  if (!f) return;
+  if (!f.type.startsWith('image/')) { toast('⚠️ Оберіть файл зображення.'); return; }
+  if (f.size > 15*1024*1024) { toast('⚠️ Файл занадто великий (макс. 15 МБ)'); return; }
 
   const reader = new FileReader();
   reader.onload = ev => {
     const img = new Image();
     img.onload = () => {
-      // compress: max 500px, JPEG 65%
-      const MAX = 500;
+      const MAX = 480;
       let w = img.width, h = img.height;
       if (w > MAX || h > MAX) {
         if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
         else       { w = Math.round(w * MAX / h); h = MAX; }
       }
-      const canvas = document.createElement('canvas');
-      canvas.width = w; canvas.height = h;
-      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-      pendingPhoto = canvas.toDataURL('image/jpeg', 0.65);
-      const kb = Math.round(pendingPhoto.length * 0.75 / 1024);
+      const cv = document.createElement('canvas');
+      cv.width = w; cv.height = h;
+      cv.getContext('2d').drawImage(img, 0, 0, w, h);
+      photo = cv.toDataURL('image/jpeg', 0.65);
+      const kb = Math.round(photo.length * .75 / 1024);
 
-      const preview     = document.getElementById('uploadPreview');
-      const area        = document.getElementById('uploadArea');
-      const clearBtn    = document.getElementById('uploadClear');
-      const placeholder = document.getElementById('uploadPlaceholder');
-      preview.src = pendingPhoto;
-      preview.classList.add('visible');
-      placeholder.style.display = 'none';
-      area.classList.add('has-img');
-      clearBtn.classList.add('visible');
-      document.getElementById('adminImg').value = '';
-      showToast(`✅ Фото стиснуто до ~${kb} КБ, готове!`, true);
+      document.getElementById('upPrev').src = photo;
+      document.getElementById('upPrev').classList.add('show');
+      document.getElementById('upPh').style.display = 'none';
+      document.getElementById('upArea').classList.add('has');
+      document.getElementById('upX').classList.add('show');
+      document.getElementById('aImg').value = '';
+      toast(`✅ Фото стиснуто до ~${kb} КБ`, true);
     };
     img.src = ev.target.result;
   };
-  reader.readAsDataURL(file);
+  reader.readAsDataURL(f);
 }
 
-function clearPhoto(e) {
+function clearFile(e) {
   if (e) e.stopPropagation();
-  pendingPhoto = null;
-  document.getElementById('uploadPreview').src = '';
-  document.getElementById('uploadPreview').classList.remove('visible');
-  document.getElementById('uploadPlaceholder').style.display = '';
-  document.getElementById('uploadArea').classList.remove('has-img');
-  document.getElementById('uploadClear').classList.remove('visible');
-  document.getElementById('photoInput').value = '';
+  photo = null;
+  document.getElementById('upPrev').src = '';
+  document.getElementById('upPrev').classList.remove('show');
+  document.getElementById('upPh').style.display = '';
+  document.getElementById('upArea').classList.remove('has');
+  document.getElementById('upX').classList.remove('show');
+  document.getElementById('fileInp').value = '';
 }
 
-// ============================================================
+// ═══════════════════════════════════════════
 // PUBLISH
-// ============================================================
-function publishProduct() {
-  const urlImg = document.getElementById('adminImg').value.trim();
-  const name   = document.getElementById('adminName').value.trim();
-  const desc   = document.getElementById('adminDesc').value.trim();
-  const tag    = document.getElementById('adminTag').value;
+// ═══════════════════════════════════════════
+async function publish() {
+  const url  = document.getElementById('aImg').value.trim();
+  const name = document.getElementById('aName').value.trim();
+  const desc = document.getElementById('aDesc').value.trim();
+  const tag  = document.getElementById('aTag').value;
 
-  if (!name) { showToast('⚠️ Введіть назву товару.'); return; }
-  if (!desc) { showToast('⚠️ Введіть опис товару.');  return; }
+  if (!name) { toast('⚠️ Введіть назву товару.'); return; }
+  if (!desc) { toast('⚠️ Введіть опис товару.'); return; }
 
-  const img = pendingPhoto || urlImg || '';
+  const img = photo || url || '';
   products.unshift({ id: nextId++, img, name, desc, tag, soldOut: false });
-  saveProducts();
+
+  await save();
   renderProducts();
 
-  // reset
-  document.getElementById('adminImg').value  = '';
-  document.getElementById('adminName').value = '';
-  document.getElementById('adminDesc').value = '';
-  clearPhoto(null);
+  document.getElementById('aImg').value  = '';
+  document.getElementById('aName').value = '';
+  document.getElementById('aDesc').value = '';
+  clearFile(null);
 
-  showToast('✅ Товар опубліковано і збережено!', true);
-  document.getElementById('productsGrid').scrollIntoView({ behavior:'smooth', block:'start' });
+  toast('✅ Товар опубліковано!', true);
+  document.getElementById('grid').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
-// ============================================================
+// ═══════════════════════════════════════════
 // SOLD OUT
-// ============================================================
-function toggleSoldOut(id) {
+// ═══════════════════════════════════════════
+async function toggleSold(id) {
   const p = products.find(x => x.id === id);
   if (!p) return;
   p.soldOut = !p.soldOut;
-  saveProducts();
+  await save();
   renderProducts();
-  showToast(p.soldOut ? `⛔ «${p.name}» позначено як Розпродано` : `✅ «${p.name}» знову в наявності`, !p.soldOut);
+  toast(p.soldOut ? `⛔ «${p.name}» — Розпродано` : `✅ «${p.name}» — В наявності`, !p.soldOut);
 }
 
-// ============================================================
+// ═══════════════════════════════════════════
 // DELETE
-// ============================================================
-function deleteProduct(id) {
-  if (!confirm('Видалити цей товар назавжди?')) return;
+// ═══════════════════════════════════════════
+async function delProduct(id) {
+  if (!confirm('Видалити цей товар?')) return;
   const p = products.find(x => x.id === id);
   products = products.filter(x => x.id !== id);
-  saveProducts();
+  await save();
   renderProducts();
-  if (p) showToast(`🗑 «${p.name}» видалено.`);
+  if (p) toast(`🗑 «${p.name}» видалено.`);
 }
 
-// ============================================================
-// BUY MODAL
-// ============================================================
-function openBuyModal(id) {
+// ═══════════════════════════════════════════
+// BUY
+// ═══════════════════════════════════════════
+function openBuy(id) {
   const p = products.find(x => x.id === id);
   if (!p || p.soldOut) return;
-  document.getElementById('buyModalName').textContent = `«${p.name}»`;
-  openModal('buyModal');
+  document.getElementById('bName').textContent = `«${p.name}»`;
+  openM('mBuy');
   addOrder(p.name);
 }
 
 function addOrder(name) {
   const list = document.getElementById('ordersList');
-  const item = document.createElement('div');
-  item.className = 'order-item';
-  item.innerHTML = `Запит на <span>${esc(name)}</span> — <a href="https://t.me/Dava638292" style="color:var(--accent-blue)" target="_blank">@Dava638292</a>`;
-  list.prepend(item);
-  document.getElementById('ordersWrap').classList.add('has-orders');
+  const el = document.createElement('div');
+  el.className = 'oi';
+  el.innerHTML = `Запит на <span>${x(name)}</span> — <a href="https://t.me/Dava638292" style="color:var(--blue)" target="_blank">@Dava638292</a>`;
+  list.prepend(el);
+  document.getElementById('ordersWrap').classList.add('show');
   while (list.children.length > 6) list.removeChild(list.lastChild);
 }
 
-// ============================================================
-// CLOUD CONFIG MODAL
-// ============================================================
-function openCloudModal() {
-  const c = getCfg();
-  document.getElementById('cfgBinId').value  = c.binId;
-  document.getElementById('cfgApiKey').value = c.apiKey;
-  document.getElementById('cfgStatus').textContent = '';
-  openModal('cloudModal');
+// ═══════════════════════════════════════════
+// FIREBASE SETUP MODAL
+// ═══════════════════════════════════════════
+function openCloudSetup() {
+  document.getElementById('fbUrl').value = fbUrl();
+  document.getElementById('cStatus').textContent = '';
+  openM('mCloud');
 }
 
-async function saveCloudConfig() {
-  const binId  = document.getElementById('cfgBinId').value.trim();
-  const apiKey = document.getElementById('cfgApiKey').value.trim();
-  const status = document.getElementById('cfgStatus');
+async function connectFirebase() {
+  const url = document.getElementById('fbUrl').value.trim().replace(/\/$/, '');
+  const st  = document.getElementById('cStatus');
 
-  if (!binId || !apiKey) { status.textContent = '❌ Заповніть обидва поля.'; status.style.color='#ff4455'; return; }
+  if (!url.startsWith('https://') || !url.includes('firebaseio.com')) {
+    st.textContent = '❌ Невірний URL. Має бути https://....firebaseio.com';
+    st.style.color = '#ff4455'; return;
+  }
 
-  status.textContent = '⏳ Перевіряю підключення...'; status.style.color = '#ffaa00';
+  st.textContent = '⏳ Перевіряю підключення...'; st.style.color = '#ffaa00';
 
   try {
-    const r = await fetch(`${JSONBIN_URL}/${binId}/latest`, {
-      headers: { 'X-Master-Key': apiKey }
+    // test write
+    const testR = await fetch(url + '/ningaga_dava/ping.json', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ok: true })
     });
-    if (r.status === 401) throw new Error('Невірний API ключ');
-    if (r.status === 404) throw new Error('Bin ID не знайдено');
-    if (!r.ok)            throw new Error('HTTP ' + r.status);
+    if (!testR.ok) throw new Error('HTTP ' + testR.status + ' — перевірте правила бази (test mode)');
 
-    const data = await r.json();
-    // save config
-    localStorage.setItem(LS_BIN_ID,  binId);
-    localStorage.setItem(LS_API_KEY, apiKey);
+    // save URL
+    localStorage.setItem(K_FB_URL, url);
 
-    // load products from cloud
-    if (data.record && Array.isArray(data.record.products)) {
-      products = data.record.products;
-      nextId   = data.record.nextId || products.length + 1;
+    // upload existing local products to cloud
+    if (products.length > 0) {
+      await fetch(url + FB_PATH, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ products, nextId })
+      });
+    } else {
+      // load from cloud
+      const ld = await fbLoad();
+      if (ld) { products = ld.products; nextId = ld.nextId; cacheLocal(); }
     }
 
-    status.textContent = '✅ Підключено успішно!'; status.style.color = '#00cc66';
-    setSyncStatus('ok');
+    st.textContent = '✅ Підключено! Тепер товари видно з будь-якого пристрою.';
+    st.style.color = '#00cc66';
+    setSyncUI('ok');
     renderProducts();
-    setTimeout(() => closeModal('cloudModal'), 1200);
-    showToast('☁️ Хмарне сховище підключено!', true);
+    setTimeout(() => closeM('mCloud'), 1500);
+    toast('☁️ Firebase підключено! Збереження хмарне.', true);
   } catch(e) {
-    status.textContent = '❌ ' + e.message; status.style.color = '#ff4455';
+    st.textContent = '❌ ' + e.message;
+    st.style.color = '#ff4455';
   }
 }
 
-async function createNewBin() {
-  const apiKey = document.getElementById('cfgApiKey').value.trim();
-  const status = document.getElementById('cfgStatus');
-  if (!apiKey) { status.textContent = '❌ Спочатку введіть API ключ.'; status.style.color='#ff4455'; return; }
+// ═══════════════════════════════════════════
+// MODAL HELPERS
+// ═══════════════════════════════════════════
+function openM(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow='hidden'; }
+function closeM(id){ document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
 
-  status.textContent = '⏳ Створюю новий bin...'; status.style.color = '#ffaa00';
-  try {
-    const r = await fetch(JSONBIN_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Master-Key': apiKey,
-        'X-Bin-Name': 'Ningaga DAVA Shop'
-      },
-      body: JSON.stringify({ products: [], nextId: 1 })
-    });
-    if (!r.ok) throw new Error('HTTP ' + r.status + ' — перевірте API ключ');
-    const data = await r.json();
-    const newId = data.metadata?.id || data.record?.id || '';
-    document.getElementById('cfgBinId').value = newId;
-    status.textContent = `✅ Bin створено: ${newId}`; status.style.color = '#00cc66';
-  } catch(e) {
-    status.textContent = '❌ ' + e.message; status.style.color = '#ff4455';
-  }
-}
-
-// ============================================================
-// MODAL
-// ============================================================
-function openModal(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow='hidden'; }
-function closeModal(id){ document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
-
-// ============================================================
+// ═══════════════════════════════════════════
 // TOAST
-// ============================================================
-function showToast(msg, success=false) {
-  const wrap = document.getElementById('toastWrap');
+// ═══════════════════════════════════════════
+function toast(msg, ok=false) {
+  const w = document.getElementById('toasts');
   const t = document.createElement('div');
-  t.className = 'toast' + (success?' success':'');
+  t.className = 'toast' + (ok?' ok':'');
   t.textContent = msg;
-  wrap.prepend(t);
-  setTimeout(() => { t.style.animation='toast-out .3s ease forwards'; setTimeout(() => t.remove(), 300); }, 3000);
+  w.prepend(t);
+  setTimeout(() => { t.style.animation='tout .3s ease forwards'; setTimeout(()=>t.remove(),300); }, 3000);
 }
 
-// ============================================================
+// ═══════════════════════════════════════════
 // UTIL
-// ============================================================
-function esc(s) {
+// ═══════════════════════════════════════════
+function x(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 </script>
