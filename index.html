@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LEGO NINJAGO DAVA — Фігурки Ніндзяго & Star Wars</title>
+<title>LEGO NINGAGA DAVA — Фігурки Ніндзяго & Star Wars</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -382,7 +382,7 @@
   <div class="header-logo">
     <div class="logo-dragon">🐉</div>
     <div class="logo-text">
-      <span class="logo-main">LEGO NINJAGO DAVA</span>
+      <span class="logo-main">LEGO NINGAGA DAVA</span>
       <span class="logo-sub">Ніндзяго · Star Wars · Фігурки</span>
     </div>
   </div>
@@ -400,7 +400,7 @@
 <div class="hero">
   <div class="hero-kanji">忍者戦士</div>
   <div class="hero-badge">⚡ офіційний магазин · ukraine</div>
-  <h1 class="hero-title">LEGO <span>NINJAGO</span><br>DAVA</h1>
+  <h1 class="hero-title">LEGO <span>NINGAGA</span><br>DAVA</h1>
   <p class="hero-sub">Фігурки · Ніндзяго · Star Wars · Колекції</p>
 </div>
 
@@ -459,6 +459,11 @@
         </select>
       </div>
       <button class="btn-publish" onclick="publishProduct()">⚡ Опублікувати</button>
+
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,170,0,0.1);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
+        <div id="syncStatus" style="font-size:12px;letter-spacing:1px;"><span style="color:#884444">💾 Локально</span></div>
+        <button onclick="openCloudModal()" style="background:none;border:1px solid rgba(0,136,255,0.4);color:rgba(0,136,255,0.85);border-radius:6px;padding:6px 12px;font-family:var(--font-body);font-size:11px;letter-spacing:1px;cursor:pointer;transition:all .2s;">☁️ Хмарне сховище</button>
+      </div>
     </div>
   </div>
 
@@ -482,9 +487,9 @@
 <!-- ===== FOOTER ===== -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-brand">🐉 Lego Ninja go DAVA</div>
+    <div class="footer-brand">🐉 Lego Ningaga DAVA</div>
     <div class="footer-contact">📱 Замовлення:&nbsp;<a href="https://t.me/Dava638292" class="tg-link" target="_blank">@Dava638292</a></div>
-    <div class="footer-copy">© 2026 Lego Ninjago DAVA</div>
+    <div class="footer-copy">© 2025 Lego Ningaga DAVA</div>
   </div>
 </footer>
 
@@ -515,39 +520,187 @@
   </div>
 </div>
 
+<!-- MODAL: CLOUD CONFIG -->
+<div class="modal-overlay" id="cloudModal">
+  <div class="modal-box" style="max-width:480px;border-color:rgba(0,136,255,0.45);box-shadow:0 0 60px rgba(0,136,255,0.18);">
+    <button class="modal-close" onclick="closeModal('cloudModal')">✕</button>
+    <div class="modal-title" style="color:#44aaff;text-shadow:0 0 20px rgba(0,136,255,0.5);">☁️ ХМАРНЕ СХОВИЩЕ</div>
+    <div class="modal-sub" style="margin-bottom:10px;">JSONbin.io — безкоштовно, без реєстрації карти</div>
+
+    <!-- Instructions -->
+    <div style="background:rgba(0,136,255,0.07);border:1px solid rgba(0,136,255,0.2);border-radius:10px;padding:14px;margin-bottom:18px;font-size:13px;color:var(--text-secondary);line-height:1.7;">
+      <b style="color:var(--accent-blue);">Як налаштувати (1 раз):</b><br>
+      1. Перейди на <a href="https://jsonbin.io" target="_blank" style="color:var(--accent-blue);">jsonbin.io</a> → зареєструйся безкоштовно<br>
+      2. Після входу: натисни <b style="color:#fff">API Keys</b> → скопіюй ключ<br>
+      3. Встав ключ нижче → натисни <b style="color:#00cc66">«Створити Bin»</b><br>
+      4. Скопіюй Bin ID → натисни <b style="color:#00cc66">«Підключити»</b>
+    </div>
+
+    <div class="form-group">
+      <label style="color:var(--accent-blue);">API ключ (X-Master-Key)</label>
+      <input type="text" class="form-input-modal" id="cfgApiKey" placeholder="$2b$10$..." style="border-color:rgba(0,136,255,0.3);margin-bottom:0;">
+    </div>
+    <div style="display:flex;gap:8px;align-items:flex-end;margin:10px 0 14px;">
+      <div class="form-group" style="flex:1;margin:0;">
+        <label style="color:var(--accent-blue);">Bin ID</label>
+        <input type="text" class="form-input-modal" id="cfgBinId" placeholder="6507a3b2..." style="border-color:rgba(0,136,255,0.3);margin-bottom:0;">
+      </div>
+      <button onclick="createNewBin()" style="background:linear-gradient(135deg,#005599,#0077cc);border:none;border-radius:8px;padding:12px 14px;color:#fff;font-family:var(--font-body);font-size:12px;letter-spacing:1px;cursor:pointer;white-space:nowrap;flex-shrink:0;">+ Створити Bin</button>
+    </div>
+
+    <div id="cfgStatus" style="font-size:13px;min-height:18px;margin-bottom:14px;text-align:center;letter-spacing:1px;"></div>
+
+    <button onclick="saveCloudConfig()" style="width:100%;background:linear-gradient(135deg,#005599,#0088ff);border:none;border-radius:8px;padding:13px;color:#fff;font-family:var(--font-display);font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 20px rgba(0,136,255,0.3);">✅ ПІДКЛЮЧИТИ</button>
+  </div>
+</div>
+
 <script>
 // ============================================================
-// PERSISTENCE — localStorage
+// ☁️ КОНФІГ ХМАРНОГО СХОВИЩА (JSONbin.io)
+// Заповнюється адміном через кнопку ⚙️ → Хмара
 // ============================================================
-const LS_PRODUCTS = 'ninjago_products_v2';
-const LS_NEXT_ID  = 'ninjago_next_id_v2';
+const LS_BIN_ID  = 'ningaga_bin_id';
+const LS_API_KEY = 'ningaga_api_key';
+const LS_CACHE   = 'ningaga_cache_v3';
+const LS_NEXT_ID = 'ningaga_next_id_v3';
+const JSONBIN_URL = 'https://api.jsonbin.io/v3/b';
 
-function loadProducts() {
-  try { const r = localStorage.getItem(LS_PRODUCTS); return r ? JSON.parse(r) : []; }
-  catch(e) { return []; }
+function getCfg() {
+  return {
+    binId:  localStorage.getItem(LS_BIN_ID)  || '',
+    apiKey: localStorage.getItem(LS_API_KEY) || ''
+  };
 }
-function saveProducts() {
+function hasCfg() {
+  const c = getCfg();
+  return c.binId.length > 5 && c.apiKey.length > 5;
+}
+
+// ============================================================
+// 💾 CLOUD LOAD
+// ============================================================
+async function cloudLoad() {
+  if (!hasCfg()) return null;
+  const { binId, apiKey } = getCfg();
   try {
-    localStorage.setItem(LS_PRODUCTS, JSON.stringify(products));
-    localStorage.setItem(LS_NEXT_ID, String(nextId));
+    const r = await fetch(`${JSONBIN_URL}/${binId}/latest`, {
+      headers: { 'X-Master-Key': apiKey }
+    });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const data = await r.json();
+    return data.record || null;
   } catch(e) {
-    showToast('⚠️ Сховище переповнене. Видаліть старі товари або використовуйте URL замість фото.');
+    console.warn('Cloud load failed:', e);
+    return null;
   }
+}
+
+// ============================================================
+// ☁️ CLOUD SAVE
+// ============================================================
+async function cloudSave() {
+  if (!hasCfg()) return false;
+  const { binId, apiKey } = getCfg();
+  setSyncStatus('saving');
+  try {
+    const payload = { products, nextId };
+    const r = await fetch(`${JSONBIN_URL}/${binId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': apiKey
+      },
+      body: JSON.stringify(payload)
+    });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    // also cache locally
+    localStorage.setItem(LS_CACHE,   JSON.stringify(products));
+    localStorage.setItem(LS_NEXT_ID, String(nextId));
+    setSyncStatus('ok');
+    return true;
+  } catch(e) {
+    console.warn('Cloud save failed:', e);
+    setSyncStatus('error');
+    // fallback to local cache
+    try {
+      localStorage.setItem(LS_CACHE,   JSON.stringify(products));
+      localStorage.setItem(LS_NEXT_ID, String(nextId));
+    } catch(_) {}
+    return false;
+  }
+}
+
+// ============================================================
+// SAVE WRAPPER
+// ============================================================
+async function saveProducts() {
+  const ok = await cloudSave();
+  if (!ok && !hasCfg()) {
+    // no cloud configured — local only
+    try {
+      localStorage.setItem(LS_CACHE,   JSON.stringify(products));
+      localStorage.setItem(LS_NEXT_ID, String(nextId));
+    } catch(_) {}
+  }
+}
+
+// ============================================================
+// SYNC STATUS INDICATOR
+// ============================================================
+function setSyncStatus(state) {
+  const el = document.getElementById('syncStatus');
+  if (!el) return;
+  const map = {
+    off:    { icon:'💾', text:'Локально', color:'#884444' },
+    ok:     { icon:'☁️', text:'Збережено', color:'#00cc66' },
+    saving: { icon:'⏳', text:'Зберігаю...', color:'#ffaa00' },
+    error:  { icon:'⚠️', text:'Помилка хмари', color:'#ff6600' },
+    loading:{ icon:'⏳', text:'Завантажую...', color:'#0088ff' },
+  };
+  const s = map[state] || map.off;
+  el.innerHTML = `<span style="color:${s.color}">${s.icon} ${s.text}</span>`;
 }
 
 // ============================================================
 // STATE
 // ============================================================
-let products      = loadProducts();
-let nextId        = parseInt(localStorage.getItem(LS_NEXT_ID) || '1', 10);
+let products      = [];
+let nextId        = 1;
 let currentFilter = 'all';
-let isAdmin       = sessionStorage.getItem('ninjago_admin') === 'true';
-let pendingPhoto  = null;   // base64 from file upload
+let isAdmin       = sessionStorage.getItem('ningaga_admin') === 'true';
+let pendingPhoto  = null;
 
 // ============================================================
 // INIT
 // ============================================================
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
+  // Show loading
+  document.getElementById('productsGrid').innerHTML =
+    `<div class="empty-state"><div class="empty-icon" style="animation:pulse-dragon 1s infinite">⏳</div><p>Завантажую товари...</p></div>`;
+
+  if (hasCfg()) {
+    setSyncStatus('loading');
+    const cloud = await cloudLoad();
+    if (cloud && Array.isArray(cloud.products)) {
+      products = cloud.products;
+      nextId   = cloud.nextId || products.length + 1;
+      // update local cache
+      try {
+        localStorage.setItem(LS_CACHE,   JSON.stringify(products));
+        localStorage.setItem(LS_NEXT_ID, String(nextId));
+      } catch(_) {}
+      setSyncStatus('ok');
+    } else {
+      // cloud empty or error — try local cache
+      loadFromCache();
+      setSyncStatus(hasCfg() ? 'error' : 'off');
+    }
+  } else {
+    // no cloud config — load from local cache
+    loadFromCache();
+    setSyncStatus('off');
+  }
+
   renderProducts();
   updateAdminUI();
 
@@ -558,6 +711,14 @@ window.addEventListener('DOMContentLoaded', () => {
     document.getElementById(id).addEventListener('keydown', e => { if (e.key==='Enter') doLogin(); });
   });
 });
+
+function loadFromCache() {
+  try {
+    const r = localStorage.getItem(LS_CACHE);
+    products = r ? JSON.parse(r) : [];
+    nextId   = parseInt(localStorage.getItem(LS_NEXT_ID) || '1', 10);
+  } catch(e) { products = []; nextId = 1; }
+}
 
 // ============================================================
 // RENDER PRODUCTS
@@ -633,7 +794,7 @@ function doLogin() {
   const p = document.getElementById('loginPass').value;
   if (u === 'DAVA' && p === '1e2w3t698') {
     isAdmin = true;
-    sessionStorage.setItem('ninjagoadmin','true');
+    sessionStorage.setItem('ningaga_admin','true');
     closeModal('loginModal');
     updateAdminUI();
     showToast('✅ Вітаємо, DAVA! Адмін-панель відкрита.', true);
@@ -645,7 +806,7 @@ function doLogin() {
 
 function logout() {
   isAdmin = false;
-  sessionStorage.removeItem('ninjago_admin');
+  sessionStorage.removeItem('ningaga_admin');
   updateAdminUI();
   showToast('👋 Ви вийшли з панелі продавця.');
 }
@@ -672,28 +833,44 @@ function updateAdminUI() {
 }
 
 // ============================================================
-// PHOTO UPLOAD
+// PHOTO UPLOAD — з автостисненням до ~80КБ
 // ============================================================
 function handlePhotoUpload(e) {
   const file = e.target.files[0];
   if (!file) return;
   if (!file.type.startsWith('image/')) { showToast('⚠️ Оберіть файл зображення.'); return; }
-  if (file.size > 5 * 1024 * 1024) { showToast('⚠️ Файл занадто великий. Максимум 5 МБ.'); return; }
+  if (file.size > 15 * 1024 * 1024) { showToast('⚠️ Файл занадто великий. Максимум 15 МБ.'); return; }
 
   const reader = new FileReader();
   reader.onload = ev => {
-    pendingPhoto = ev.target.result;
-    const preview     = document.getElementById('uploadPreview');
-    const area        = document.getElementById('uploadArea');
-    const clearBtn    = document.getElementById('uploadClear');
-    const placeholder = document.getElementById('uploadPlaceholder');
-    preview.src = pendingPhoto;
-    preview.classList.add('visible');
-    placeholder.style.display = 'none';
-    area.classList.add('has-img');
-    clearBtn.classList.add('visible');
-    document.getElementById('adminImg').value = '';
-    showToast('✅ Фото готове до публікації!', true);
+    const img = new Image();
+    img.onload = () => {
+      // compress: max 500px, JPEG 65%
+      const MAX = 500;
+      let w = img.width, h = img.height;
+      if (w > MAX || h > MAX) {
+        if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
+        else       { w = Math.round(w * MAX / h); h = MAX; }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      pendingPhoto = canvas.toDataURL('image/jpeg', 0.65);
+      const kb = Math.round(pendingPhoto.length * 0.75 / 1024);
+
+      const preview     = document.getElementById('uploadPreview');
+      const area        = document.getElementById('uploadArea');
+      const clearBtn    = document.getElementById('uploadClear');
+      const placeholder = document.getElementById('uploadPlaceholder');
+      preview.src = pendingPhoto;
+      preview.classList.add('visible');
+      placeholder.style.display = 'none';
+      area.classList.add('has-img');
+      clearBtn.classList.add('visible');
+      document.getElementById('adminImg').value = '';
+      showToast(`✅ Фото стиснуто до ~${kb} КБ, готове!`, true);
+    };
+    img.src = ev.target.result;
   };
   reader.readAsDataURL(file);
 }
@@ -779,6 +956,81 @@ function addOrder(name) {
   list.prepend(item);
   document.getElementById('ordersWrap').classList.add('has-orders');
   while (list.children.length > 6) list.removeChild(list.lastChild);
+}
+
+// ============================================================
+// CLOUD CONFIG MODAL
+// ============================================================
+function openCloudModal() {
+  const c = getCfg();
+  document.getElementById('cfgBinId').value  = c.binId;
+  document.getElementById('cfgApiKey').value = c.apiKey;
+  document.getElementById('cfgStatus').textContent = '';
+  openModal('cloudModal');
+}
+
+async function saveCloudConfig() {
+  const binId  = document.getElementById('cfgBinId').value.trim();
+  const apiKey = document.getElementById('cfgApiKey').value.trim();
+  const status = document.getElementById('cfgStatus');
+
+  if (!binId || !apiKey) { status.textContent = '❌ Заповніть обидва поля.'; status.style.color='#ff4455'; return; }
+
+  status.textContent = '⏳ Перевіряю підключення...'; status.style.color = '#ffaa00';
+
+  try {
+    const r = await fetch(`${JSONBIN_URL}/${binId}/latest`, {
+      headers: { 'X-Master-Key': apiKey }
+    });
+    if (r.status === 401) throw new Error('Невірний API ключ');
+    if (r.status === 404) throw new Error('Bin ID не знайдено');
+    if (!r.ok)            throw new Error('HTTP ' + r.status);
+
+    const data = await r.json();
+    // save config
+    localStorage.setItem(LS_BIN_ID,  binId);
+    localStorage.setItem(LS_API_KEY, apiKey);
+
+    // load products from cloud
+    if (data.record && Array.isArray(data.record.products)) {
+      products = data.record.products;
+      nextId   = data.record.nextId || products.length + 1;
+    }
+
+    status.textContent = '✅ Підключено успішно!'; status.style.color = '#00cc66';
+    setSyncStatus('ok');
+    renderProducts();
+    setTimeout(() => closeModal('cloudModal'), 1200);
+    showToast('☁️ Хмарне сховище підключено!', true);
+  } catch(e) {
+    status.textContent = '❌ ' + e.message; status.style.color = '#ff4455';
+  }
+}
+
+async function createNewBin() {
+  const apiKey = document.getElementById('cfgApiKey').value.trim();
+  const status = document.getElementById('cfgStatus');
+  if (!apiKey) { status.textContent = '❌ Спочатку введіть API ключ.'; status.style.color='#ff4455'; return; }
+
+  status.textContent = '⏳ Створюю новий bin...'; status.style.color = '#ffaa00';
+  try {
+    const r = await fetch(JSONBIN_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': apiKey,
+        'X-Bin-Name': 'Ningaga DAVA Shop'
+      },
+      body: JSON.stringify({ products: [], nextId: 1 })
+    });
+    if (!r.ok) throw new Error('HTTP ' + r.status + ' — перевірте API ключ');
+    const data = await r.json();
+    const newId = data.metadata?.id || data.record?.id || '';
+    document.getElementById('cfgBinId').value = newId;
+    status.textContent = `✅ Bin створено: ${newId}`; status.style.color = '#00cc66';
+  } catch(e) {
+    status.textContent = '❌ ' + e.message; status.style.color = '#ff4455';
+  }
 }
 
 // ============================================================
